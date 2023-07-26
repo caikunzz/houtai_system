@@ -1,5 +1,5 @@
 <template>
-  <div class="color-red">
+  <div class="bg-light-100">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -276,10 +276,14 @@
     <Button>1111</Button>
     <Switch v-model:checked="checked" />
   </div>
+  <el-switch v-model="value1" />
+  {{ data }}
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { Button, Switch } from 'ant-design-vue';
-
+// import { Button, Switch } from 'ant-design-vue';
+const { data } = useRequest(() => {
+  return Promise.resolve('hahaha');
+});
 const checked = ref(true);
+const value1 = ref(true);
 </script>

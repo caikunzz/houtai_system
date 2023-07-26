@@ -7,7 +7,7 @@ import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import { ElementPlusResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
 import WindiCSS from 'vite-plugin-windicss';
-import Markdown from 'vite-plugin-vue-markdown'
+import Markdown from 'vite-plugin-vue-markdown';
 import Prism from 'markdown-it-prism';
 import ViteFonts from 'vite-plugin-fonts';
 import VueI18n from '@intlify/vite-plugin-vue-i18n';
@@ -26,11 +26,20 @@ export default (env: ConfigEnv) => {
     svgLoader(),
     AutoImport({
       dts: './src/auto-imports.d.ts',
-      imports: ['vue', 'pinia', 'vue-router', 'vue-i18n', , '@vueuse/core'],
+      imports: [
+        'vue',
+        'pinia',
+        'vue-router',
+        'vue-i18n',
+        '@vueuse/core',
+        {
+          'vue-request': ['useRequest'],
+        },
+      ],
       // Generate corresponding .eslintrc-auto-import.json file.
       // eslint globals Docs - https://eslint.org/docs/user-guide/configuring/language-options#specifying-globals
       eslintrc: {
-        enabled: false, // Default `false`
+        enabled: true, // Default `false`
         filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
         globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
       },
