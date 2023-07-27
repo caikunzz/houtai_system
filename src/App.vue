@@ -10,5 +10,5 @@
     <router-view></router-view>
     <!-- </el-config-provider> -->
   </div>
-  <TheFooter></TheFooter>
+  <!-- <TheFooter></TheFooter> -->
 </template>
