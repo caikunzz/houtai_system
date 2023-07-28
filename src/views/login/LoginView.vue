@@ -41,6 +41,7 @@
               v-model="ruleForm.name"
               type="text"
               autocomplete="off"
+              :prefix-icon="User"
               class="h-[40px]"
               placeholder="请输入用户名"
             />
@@ -50,6 +51,8 @@
               v-model="ruleForm.pass"
               type="password"
               autocomplete="off"
+              show-password
+              :prefix-icon="Lock"
               class="h-[40px]"
               placeholder="请输入密码"
             />
@@ -159,12 +162,31 @@
       <span class="text-[16px] text-[#999]">© 2021 HOPU | 鄂ICP备29218126号-1 </span>
     </div>
   </div>
+  <Vcode
+    :show="isShow"
+    @success="onSuccess"
+    @close="onClose"
+    :slider-size="40"
+    :canvasWidth="400"
+    :canvasHeight="200"
+  />
 </template>
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus';
 import { User, Message, Lock, Unlock } from '@element-plus/icons-vue';
-
+import Vcode from 'vue3-puzzle-vcode';
+import store from 'store';
 import loginApi from '@/api/modules/login';
+
+console.log(store.get('user_token'));
+const isShow = ref(false);
+const onShow = () => {
+  isShow.value = true;
+};
+
+const onClose = () => {
+  isShow.value = false;
+};
 
 const checked = ref(false);
 const show = ref(true); // 注册
@@ -214,23 +236,61 @@ const validatePass = (rule: any, value: any, callback: any) => {
     callback();
   }
 };
+// 反馈通知
+// {title:string,message:string,position:string}
+// 成功时的信息
+const open = (tle: string, msg: string) => {
+  ElNotification({
+    title: tle,
+    dangerouslyUseHTMLString: true,
+    message: `<div class="flex justify-between items-center text-[16px] font-bold py-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><path fill="#67c23a" fill-rule="evenodd" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Zm10.742-26.33a1 1 0 1 0-1.483-1.34L21.28 29.567l-6.59-6.291a1 1 0 0 0-1.382 1.446l7.334 7l.743.71l.689-.762l12.667-14Z" clip-rule="evenodd"/></svg>
+        <p>${msg}<p>
+      <div>`,
+    position: 'bottom-left',
+  });
+};
+// 错误时的信息
+const open2 = (tle: string, msg: string) => {
+  ElNotification({
+    title: tle,
+    dangerouslyUseHTMLString: true,
+    message: `<div class="flex justify-between items-center text-[16px] font-bold">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><rect x="0" y="0" width="32" height="32" fill="none" stroke="none" /><path fill="red" d="M16 2C8.2 2 2 8.2 2 16s6.2 14 14 14s14-6.2 14-14S23.8 2 16 2zm5.4 21L16 17.6L10.6 23L9 21.4l5.4-5.4L9 10.6L10.6 9l5.4 5.4L21.4 9l1.6 1.6l-5.4 5.4l5.4 5.4l-1.6 1.6z"/></svg>
+        <p>${msg}<p>
+      <div>`,
+    position: 'bottom-left',
+  });
+};
 // 登录按钮
-const onSubmit = () => {
+// onShow();
+const onSuccess = () => {
+  onClose();
   const data = {
     username: ruleForm.name,
     password: ruleForm.pass,
   };
-  console.log(data);
   if (data.password !== '' && data.username !== '' && code.value === true) {
     console.log('登录：用户已存在');
     loginApi
       .postVerification(data)
       .then((res: object) => {
         console.log(res);
+        open('成功', `登录成功`);
       })
       .catch((err: object) => {
         console.log(err);
+        open2('错误', `密码错误!`);
       });
+  } // 验证成功，需要手动关闭模态框
+};
+const onSubmit = () => {
+  const data = {
+    username: ruleForm.name,
+    password: ruleForm.pass,
+  };
+  if (data.password !== '' && data.username !== '' && code.value === true) {
+    onShow();
   }
 };
 const rules = reactive<FormRules<typeof ruleForm>>({
@@ -333,6 +393,7 @@ const onEmali = () => {
               })
               .then((ress) => {
                 console.log(ress);
+                open('', `验证码已发送至${ruleForm2.mail},请查收！`);
               })
               .catch((err: object) => {
                 console.log(err);
@@ -359,6 +420,7 @@ const onEmali = () => {
             })
             .then((ress) => {
               console.log(ress);
+              open('', `验证码已发送至${ruleForm2.mail},请查收！`);
             })
             .catch((err: object) => {
               console.log(err);
@@ -392,7 +454,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
   } else if (ruleForm2.pass !== '' && pass.test(ruleForm2.pass)) {
     callback();
     flagPass.value = true;
-  } else {
+  } else if (pass.test(ruleForm2.pass) === false) {
     callback(new Error('密码是6-12位字母和数字'));
     flagPass.value = false;
   }
@@ -436,6 +498,7 @@ const onLogin = () => {
         console.log(res);
         if ((res as { code: number }).code === 0) {
           console.log(res);
+          open('', `注册成功`);
         } else if ((res as { code: number }).code === 404) {
           console.log(res);
         }
@@ -460,9 +523,9 @@ const setPass = () => {
       .then((res: object) => {
         console.log(res);
         if ((res as { code: number }).code === 0) {
-          console.log(res);
+          open('', `密码重置成功`);
         } else if ((res as { code: number }).code === 404) {
-          console.log(res);
+          open('', `密码重置失败！`);
         }
       })
       .catch((err: object) => {
@@ -478,6 +541,4 @@ const rules2 = reactive<FormRules<typeof ruleForm2>>({
   pass: [{ validator: validatePass2, trigger: 'blur' }],
   name: [{ validator: validateNames, trigger: 'blur' }],
 });
-
-// 反馈通知
 </script>

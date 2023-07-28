@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
-import showCodeMessage from '@/api/code';
+// import showCodeMessage from '@/api/code';
+import store from 'store';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
@@ -30,24 +31,21 @@ axiosInstance.interceptors.request.use(
 );
 
 // 响应拦截器
-axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    if (response.status === 200) {
-      return response.data;
+axiosInstance.interceptors.response.use((response: AxiosResponse) => {
+  if (response.status === 200) {
+    console.log(response.config.url);
+
+    if (response.config.url === 'http://192.168.122.36:1024/api/v1/users/login') {
+      console.log(response.data.data);
+      if (response.data.data) {
+        store.set('user_token', response.data.data);
+      }
     }
-    ElMessage.info(JSON.stringify(response.status));
-    return response;
-  },
-  (error: AxiosError) => {
-    const { response } = error;
-    if (response) {
-      ElMessage.error(showCodeMessage(response.status));
-      return Promise.reject(response.data);
-    }
-    ElMessage.warning('网络连接异常,请稍后再试!');
-    return Promise.reject(error);
-  },
-);
+    return response.data;
+  }
+  ElMessage.info(JSON.stringify(response.status));
+  return response;
+});
 const service = {
   get<T = any>(url: string, data?: object): Promise<T> {
     return axiosInstance.get(url, { params: data });

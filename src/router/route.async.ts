@@ -8,6 +8,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: '',
       icon: '',
+      requiresAuth: true,
     },
     component: () => import('@/views/home/index.vue'),
   },
@@ -19,11 +20,6 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       icon: '',
     },
     component: () => import('@/views/example/MarkdownPage.vue'),
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login/LoginView.vue'),
   },
 ];
 

@@ -12,17 +12,22 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.3",
     "@vueuse/core": "^8.9.2",
     "ant-design-vue": "^4.0.0",
     "axios": "^0.25.0",
     "element-plus": "^2.0.1",
+    "js-cookie": "^3.0.5",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.16",
     "prism-theme-vars": "^0.2.4",
+    "store": "^2.0.12",
     "vue": "^3.2.25",
+    "vue-drag-verify": "^1.0.6",
     "vue-i18n": "^9.1.9",
     "vue-request": "^2.0.3",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "vue3-puzzle-vcode": "^1.0.15"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.3.0",
@@ -31,6 +36,7 @@
     "@intlify/vite-plugin-vue-i18n": "^6.0.0",
     "@types/node": "^17.0.10",
     "@types/nprogress": "^0.2.0",
+    "@types/store": "^2.0.2",
     "@types/svgo": "^2.6.1",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
@@ -60,6 +66,7 @@
     "vite-plugin-vue-markdown": "^0.21.1",
     "vite-plugin-windicss": "^1.8.7",
     "vite-svg-loader": "^3.4.0",
+    "vue-drag-verify-img": "^1.1.0",
     "vue-tsc": "^0.38.4"
   },
   "lint-staged": {
