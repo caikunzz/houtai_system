@@ -357,6 +357,8 @@
                 <el-button size="large" class="w-[100%]" @click="isShow = !isShow">注册</el-button>
               </el-form-item>
             </el-form>
+
+            <Vcode :show="VcodeShow" @success="onSuccess" @close="onClose" />
           </div>
 
           <!-- 注册 -->
@@ -447,7 +449,17 @@
 <script lang="ts" setup>
 import { User, Lock, Unlock, Odometer } from '@element-plus/icons-vue';
 import type { FormInstance, FormRules } from 'element-plus';
+import Vcode from 'vue3-puzzle-vcode';
 import loginApi from '@/api/modules/login';
+
+const VcodeShow = ref(false);
+const onShow = () => {
+  VcodeShow.value = true;
+};
+
+const onClose = () => {
+  VcodeShow.value = false;
+};
 
 const RememberPwd = ref(true);
 const isShow = ref(true);
@@ -460,6 +472,24 @@ const ruleForm = reactive<RuleForm>({
   username: '',
   password: '',
 });
+const onSuccess = () => {
+  onClose(); // 验证成功，需要手动关闭模态框
+  loginApi
+    .RegLogin({ username: ruleForm.username, password: ruleForm.password, type: 1 })
+    .then((res) => {
+      if (res.code == 40000) {
+        ElNotification({
+          title: '错误',
+          message: '密码错误',
+          type: 'error',
+          position: 'bottom-left',
+        });
+      } else if (res.code === 0) {
+        console.log('这里写跳转到首页');
+      }
+    })
+    .catch((err) => console.log(err));
+};
 // 用户名验证
 const RetUser = (rule: any, value: any, callback: any) => {
   loginApi
@@ -487,20 +517,21 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid, fields) => {
     if (valid) {
       // console.log('submit!');
-      loginApi
-        .RegLogin({ username: ruleForm.username, password: ruleForm.password, type: 1 })
-        .then((res) => {
-          console.log(res.code);
-          if (res.code == 40000) {
-            ElNotification({
-              title: '错误',
-              message: '密码错误',
-              type: 'error',
-              position: 'bottom-left',
-            });
-          }
-        })
-        .catch((err) => console.log(err));
+      onShow();
+      // loginApi
+      //   .RegLogin({ username: ruleForm.username, password: ruleForm.password, type: 1 })
+      //   .then((res) => {
+      //     console.log(res.code);
+      //     if (res.code == 40000) {
+      //       ElNotification({
+      //         title: '错误',
+      //         message: '密码错误',
+      //         type: 'error',
+      //         position: 'bottom-left',
+      //       });
+      //     }
+      //   })
+      //   .catch((err) => console.log(err));
     } else {
       console.log('error submit!', fields);
     }
@@ -570,6 +601,7 @@ const RegEmail = (rule: any, value: any, callback: any) => {
       if (res.code == 404) {
         emailcode.value = true;
       }
+      callback();
     })
     .catch((err) => console.log(err));
 };

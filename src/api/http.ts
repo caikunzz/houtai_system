@@ -3,6 +3,8 @@ import { ElMessage } from 'element-plus';
 // import store from 'store';
 // import { config } from 'process';
 // import showCodeMessage from '@/api/code';
+import { type } from 'os';
+import store from 'store';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
@@ -35,11 +37,14 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.status === 200) {
+      if (response.config.url == '/api/v1/users/login') {
+        console.log(response.data.data);
+        if (response.data.data) {
+          store.set('user_token', response.data.data);
+        }
+      }
       return response.data;
     }
-    // if (response.data.config == '/api/v1/users/login') {
-    //   store.set('acro_auth', response.data.data);
-    // }
     ElMessage.info(JSON.stringify(response.status));
     return response;
   },
