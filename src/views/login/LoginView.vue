@@ -163,6 +163,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus';
 import { User, Message, Lock, Unlock } from '@element-plus/icons-vue';
+
 import loginApi from '@/api/modules/login';
 
 const checked = ref(false);
@@ -220,8 +221,8 @@ const onSubmit = () => {
     password: ruleForm.pass,
   };
   console.log(data);
-  if (data.password !== '' && data.username !== '' && code.value == true) {
-    console.log('用户已存在');
+  if (data.password !== '' && data.username !== '' && code.value === true) {
+    console.log('登录：用户已存在');
     loginApi
       .postVerification(data)
       .then((res: object) => {
@@ -284,7 +285,7 @@ const validateMail = (rule: any, value: any, callback: any) => {
           console.log(res);
           if ((res as { code: number }).code === 0) {
             if (show2.value === true) {
-              callback(new Error('邮箱有误'));
+              callback(new Error('此邮箱已被注册'));
               flagEmail.value = false;
             } else {
               callback();
@@ -292,7 +293,7 @@ const validateMail = (rule: any, value: any, callback: any) => {
             }
           } else if ((res as { code: number }).code === 404) {
             if (show2.value === false) {
-              callback(new Error('邮箱有误'));
+              callback(new Error('请输入正确的邮箱地址'));
               flagEmail.value = false;
             } else {
               callback();
@@ -324,9 +325,33 @@ const onEmali = () => {
       .then((res: object) => {
         console.log(res);
         if ((res as { code: number }).code === 0) {
-          return false;
-        }
-        if ((res as { code: number }).code === 404) {
+          if (show2.value === false) {
+            loginApi
+              .postVerificationCodes({
+                target: ruleForm2.mail,
+                type: 1,
+              })
+              .then((ress) => {
+                console.log(ress);
+              })
+              .catch((err: object) => {
+                console.log(err);
+              });
+            disabled.value = true;
+            let i = 25;
+            yzm.value = `重新发送${i}`;
+            const t = setInterval(() => {
+              if (i === 0) {
+                disabled.value = false;
+                yzm.value = '获取验证码';
+                clearInterval(t);
+              } else {
+                i -= 1;
+                yzm.value = `重新发送${i}`;
+              }
+            }, 1000);
+          }
+        } else if ((res as { code: number }).code === 404) {
           loginApi
             .postVerificationCodes({
               target: ruleForm2.mail,
@@ -453,4 +478,6 @@ const rules2 = reactive<FormRules<typeof ruleForm2>>({
   pass: [{ validator: validatePass2, trigger: 'blur' }],
   name: [{ validator: validateNames, trigger: 'blur' }],
 });
+
+// 反馈通知
 </script>
