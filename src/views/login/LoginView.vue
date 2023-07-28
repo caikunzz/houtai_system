@@ -327,6 +327,7 @@
                   placeholder="请输入用户名"
                   :prefix-icon="User"
                   autofocus
+                  clearable
                 />
               </el-form-item>
               <el-form-item prop="password">
@@ -338,6 +339,7 @@
                   :prefix-icon="Lock"
                   type="password"
                   show-password
+                  clearable
                 />
               </el-form-item>
               <el-form-item>
@@ -418,6 +420,15 @@
         </div>
         <!-- </el-col>
         </el-row> -->
+
+        <!-- <dragVerifyImg
+          ref="dragVerify"
+          handler-icon="fa fa-angle-double-right"
+          success-icon="fa fa-check-circle-o"
+          refresh-icon="fa fa-refresh"
+          @passcallback="true"
+        >
+        </dragVerifyImg> -->
       </div>
       <div class="flex items-center justify-center h-[40px] text-[14px]">
         <div class="flex items-center">
@@ -458,6 +469,7 @@ const RetUser = (rule: any, value: any, callback: any) => {
       if (res.code == 404) {
         return callback(new Error('用户名不存在'));
       }
+      callback();
     })
     .catch((err) => console.log(err));
 };
@@ -470,11 +482,25 @@ const rules = reactive<FormRules<RuleForm>>({
   password: [{ required: true, min: 6, message: '密码不能少于6位', trigger: 'blur' }],
 });
 
-const submitForm = async (formEl: FormInstance | undefined) => {
+const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  await formEl.validate((valid, fields) => {
+  formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!');
+      // console.log('submit!');
+      loginApi
+        .RegLogin({ username: ruleForm.username, password: ruleForm.password, type: 1 })
+        .then((res) => {
+          console.log(res.code);
+          if (res.code == 40000) {
+            ElNotification({
+              title: '错误',
+              message: '密码错误',
+              type: 'error',
+              position: 'bottom-left',
+            });
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
       console.log('error submit!', fields);
     }
@@ -505,6 +531,7 @@ const RegUser = (rule: any, value: any, callback: any) => {
       if (res.code == 0) {
         return callback(new Error('用户名已存在'));
       }
+      callback();
     })
     .catch((err) => console.log(err));
 };
