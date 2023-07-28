@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 const asyncRoutes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     meta: {
       title: '',
@@ -21,7 +21,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/example/MarkdownPage.vue'),
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => import('@/views/login/LoginView.vue'),
   },

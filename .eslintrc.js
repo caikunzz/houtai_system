@@ -33,6 +33,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
     'unicorn/filename-case': 'off',
+    'vue/multi-word-component-names': 'off',
     eqeqeq: 'off',
   },
 };

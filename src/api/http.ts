@@ -3,7 +3,6 @@ import { ElMessage } from 'element-plus';
 // import store from 'store';
 // import { config } from 'process';
 // import showCodeMessage from '@/api/code';
-import { type } from 'os';
 import store from 'store';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 
@@ -26,7 +25,14 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // TODO 在这里可以加上想要在请求发送前处理的逻辑
     // TODO 比如 loading 等
-    return config;
+    console.log(config);
+    const newconfig = config;
+    const UsetToken = store.get('user_token');
+    if (UsetToken) {
+      newconfig.xsrfCookieName = UsetToken.accessToken;
+      newconfig.xsrfHeaderName = UsetToken.refreshToken;
+    }
+    return newconfig;
   },
   (error: AxiosError) => {
     return Promise.reject(error);

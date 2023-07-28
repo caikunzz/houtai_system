@@ -631,11 +631,21 @@ const Regrules = reactive<FormRules<RegRuleForm>>({
   ],
   aignpassword: [{ validator: validatePass2, trigger: 'blur' }],
 });
+
 const RegsubmitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log('submit!');
+      loginApi.RegUsers({
+        avatar: 'https://fastly.picsum.photos/id/490/100/100.jpg?hmac=2AzNYM110aBYfQ0pQJXlip_vrPwtx3aG72MyUmxLgrU',
+        code: RegruleForm.num,
+        email: RegruleForm.email,
+        password: RegruleForm.password,
+        passwordConfirm: RegruleForm.aignpassword,
+        username: RegruleForm.username,
+        verification_type: 1,
+      });
     } else {
       console.log('error submit!', fields);
     }
@@ -647,6 +657,20 @@ const RegsubmitForm = async (formEl: FormInstance | undefined) => {
 const getRegnum = () => {
   if (emailcode.value) {
     console.log(emailcode.value);
+    loginApi
+      .GetRegCode({ target: RegruleForm.email, type: 1 })
+      .then((res) => {
+        console.log(res);
+        if (res.data.code == 0) {
+          ElNotification({
+            title: '验证码发送到',
+            message: `${RegruleForm.email},请查收！`,
+            position: 'bottom-left',
+            type: 'success',
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   }
 };
 
