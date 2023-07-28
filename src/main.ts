@@ -6,6 +6,8 @@ import router from '@/router/index';
 // pinia
 import store from '@/store';
 import App from './App.vue';
+// antdv
+import 'ant-design-vue/dist/reset.css';
 
 import 'virtual:windi.css';
 // Devtools: https://windicss.org/integrations/vite.html#design-in-devtools
@@ -18,7 +20,6 @@ const i18n = createI18n({
 });
 
 const app = createApp(App);
-
 app.use(router).use(store);
 
 app.use(i18n);

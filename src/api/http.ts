@@ -1,5 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import showCodeMessage from '@/api/code';
+import { ElMessage } from 'element-plus';
+// import store from 'store';
+// import { config } from 'process';
+// import showCodeMessage from '@/api/code';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
@@ -34,13 +37,26 @@ axiosInstance.interceptors.response.use(
     if (response.status === 200) {
       return response.data;
     }
+    // if (response.data.config == '/api/v1/users/login') {
+    //   store.set('acro_auth', response.data.data);
+    // }
     ElMessage.info(JSON.stringify(response.status));
     return response;
   },
   (error: AxiosError) => {
     const { response } = error;
+    // console.log(response?.data);
     if (response) {
-      ElMessage.error(showCodeMessage(response.status));
+      if (response.config.url == '/api/v1/users/login') {
+        ElNotification({
+          title: '错误',
+          message: response.data.msg,
+          type: 'error',
+          position: 'bottom-left',
+        });
+      }
+      // ElMessage.error(response.data.msg);
+      // ElMessage.error(showCodeMessage(response.status));
       return Promise.reject(response.data);
     }
     ElMessage.warning('网络连接异常,请稍后再试!');
