@@ -1,289 +1,456 @@
 <template>
-  <div class="bg-light-100">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 1361 609"
-      version="1.1"
-    >
-      <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-      <title>Group 21</title>
-      <desc>Created with Sketch.</desc>
-      <defs />
-      <g id="Ant-Design-Pro-3.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="账户密码登录-校验" transform="translate(-79.000000, -82.000000)">
-          <g id="Group-21" transform="translate(77.000000, 73.000000)">
-            <g
-              id="Group-18"
-              opacity="0.8"
-              transform="translate(74.901416, 569.699158) rotate(-7.000000) translate(-74.901416, -569.699158) translate(4.901416, 525.199158)"
+  <!-- <LazyLoading v-if="loading" /> -->
+  <div
+    class="bg-light-100 relative w-screen h-[100vh] flex items-center justify-center"
+    style="
+      background: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg) no-repeat;
+      background-size: 100%;
+      background-position: center 110px;
+    "
+  >
+    <div class="absolute top-[24px] left-[24px] flex items-center">
+      <svg data-v-37dfd6fc="" viewBox="0 0 24 24" fill="none" style="font-size: 30px; height: 30px">
+        <path
+          data-v-37dfd6fc=""
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-4.737a4.263 4.263 0 100-8.526 4.263 4.263 0 000 8.526z"
+          fill="#165DFF"
+        ></path>
+        <path
+          data-v-37dfd6fc=""
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M16.263 7.737H21v4.353l-.013.384h-4.75c.024-.237.026-.41.026-.41V7.737zM11.526 3.013c.207-.01.402-.013.402-.013h4.335v4.737h-4.35s-.202.004-.387.025v-4.75z"
+          fill="#165DFF"
+        ></path>
+        <path data-v-37dfd6fc="" fill="#16D2AC" d="M15 3h6v6h-6z"></path>
+      </svg>
+      <span class="font-575 text-[1.25rem]">Arco</span>
+    </div>
+    <div class="flex flex-col w-[320px] h-[390px] justify-center">
+      <!-- 登录 -->
+      <el-space v-if="show" direction="vertical" :fill="true" class="w-[100%]">
+        <div class="mb-[40px]">
+          <h1 class="text-[24px] text-[#1d2129] mb-[5px]">登录 Arco</h1>
+          <p class="text-[16px] text-[#86909c]">内部项目管理系统</p>
+        </div>
+        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="auto" class="demo-ruleForm">
+          <el-form-item prop="name">
+            <el-input
+              v-model="ruleForm.name"
+              type="text"
+              autocomplete="off"
+              class="h-[40px]"
+              placeholder="请输入用户名"
+            />
+          </el-form-item>
+          <el-form-item prop="pass">
+            <el-input
+              v-model="ruleForm.pass"
+              type="password"
+              autocomplete="off"
+              class="h-[40px]"
+              placeholder="请输入密码"
+            />
+          </el-form-item>
+          <el-form-item prop="checked1">
+            <div class="flex w-[100%] justify-between items-center">
+              <el-checkbox v-model="checked" label="记住密码" size="large" />
+              <span class="text-[#409eff]" @click="(show = !show), (show2 = false)">忘记密码</span>
+            </div>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" size="large" class="w-[100%] h-[40px]" @click="onSubmit">登录</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="w-[100%]" size="large" plain @click="show = !show">注册</el-button>
+          </el-form-item>
+        </el-form>
+      </el-space>
+      <!-- 注册 -->
+      <el-space v-else-if="!show" direction="vertical" :fill="true">
+        <el-form ref="ruleFormRef2" :model="ruleForm2" :rules="rules2" label-width="auto" class="demo-ruleForm">
+          <el-form-item v-if="show2" prop="name">
+            <el-input
+              v-model="ruleForm2.name"
+              :prefix-icon="User"
+              type="text"
+              autocomplete="off"
+              class="h-[40px]"
+              placeholder="请输入用户名"
+            />
+          </el-form-item>
+          <el-form-item prop="mail">
+            <el-input
+              v-model="ruleForm2.mail"
+              :prefix-icon="Message"
+              type="text"
+              autocomplete="off"
+              class="h-[40px]"
+              placeholder="请输入邮箱"
+            />
+          </el-form-item>
+          <div class="flex justify-between">
+            <el-form-item prop="verificationCode">
+              <el-input
+                v-model="ruleForm2.verificationCode"
+                type="text"
+                autocomplete="off"
+                class="w-[50%] h-[40px] box-border"
+                placeholder="验证码"
+              />
+            </el-form-item>
+            <el-button
+              v-if="show2"
+              type="primary"
+              :disabled="disabled"
+              plain
+              size="large"
+              class="w-[110px] h-[40px]"
+              @click="onEmali"
+              >{{ yzm }}</el-button
             >
-              <ellipse
-                id="Oval-11"
-                fill="#CFDAE6"
-                opacity="0.25"
-                cx="63.5748792"
-                cy="32.468367"
-                rx="21.7830479"
-                ry="21.766008"
-              />
-              <ellipse
-                id="Oval-3"
-                fill="#CFDAE6"
-                opacity="0.599999964"
-                cx="5.98746479"
-                cy="13.8668601"
-                rx="5.2173913"
-                ry="5.21330997"
-              />
-              <path
-                id="Oval-3-Copy"
-                d="M38.1354514,88.3520215 C43.8984227,88.3520215 48.570234,83.6838647 48.570234,77.9254015 C48.570234,72.1669383 43.8984227,67.4987816 38.1354514,67.4987816 C32.3724801,67.4987816 27.7006688,72.1669383 27.7006688,77.9254015 C27.7006688,83.6838647 32.3724801,88.3520215 38.1354514,88.3520215 Z"
-                fill="#CFDAE6"
-                opacity="0.45"
-              />
-              <path
-                id="Path-12"
-                d="M64.2775582,33.1704963 L119.185836,16.5654915"
-                stroke="#CFDAE6"
-                stroke-width="1.73913043"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                id="Path-16"
-                d="M42.1431708,26.5002681 L7.71190162,14.5640702"
-                stroke="#E0B4B7"
-                stroke-width="0.702678964"
-                opacity="0.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-dasharray="1.405357899873153,2.108036953469981"
-              />
-              <path
-                id="Path-15"
-                d="M63.9262187,33.521561 L43.6721326,69.3250951"
-                stroke="#BACAD9"
-                stroke-width="0.702678964"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-dasharray="1.405357899873153,2.108036953469981"
-              />
-              <g
-                id="Group-17"
-                transform="translate(126.850922, 13.543654) rotate(30.000000) translate(-126.850922, -13.543654) translate(117.285705, 4.381889)"
-                fill="#CFDAE6"
-              >
-                <ellipse id="Oval-4" opacity="0.45" cx="9.13482653" cy="9.12768076" rx="9.13482653" ry="9.12768076" />
-                <path
-                  id="Oval-4"
-                  d="M18.2696531,18.2553615 C18.2696531,13.2142826 14.1798519,9.12768076 9.13482653,9.12768076 C4.08980114,9.12768076 0,13.2142826 0,18.2553615 L18.2696531,18.2553615 Z"
-                  transform="translate(9.134827, 13.691521) scale(-1, -1) translate(-9.134827, -13.691521) "
-                />
-              </g>
-            </g>
-            <g
-              id="Group-14"
-              transform="translate(216.294700, 123.725600) rotate(-5.000000) translate(-216.294700, -123.725600) translate(106.294700, 35.225600)"
+            <el-button
+              v-else
+              type="primary"
+              :disabled="disabled"
+              size="large"
+              class="w-[110px] h-[40px]"
+              @click="onEmali"
+              >{{ yzm }}</el-button
             >
-              <ellipse
-                id="Oval-2"
-                fill="#CFDAE6"
-                opacity="0.25"
-                cx="29.1176471"
-                cy="29.1402439"
-                rx="29.1176471"
-                ry="29.1402439"
-              />
-              <ellipse
-                id="Oval-2"
-                fill="#CFDAE6"
-                opacity="0.3"
-                cx="29.1176471"
-                cy="29.1402439"
-                rx="21.5686275"
-                ry="21.5853659"
-              />
-              <ellipse
-                id="Oval-2-Copy"
-                stroke="#CFDAE6"
-                opacity="0.4"
-                cx="179.019608"
-                cy="138.146341"
-                rx="23.7254902"
-                ry="23.7439024"
-              />
-              <ellipse
-                id="Oval-2"
-                fill="#BACAD9"
-                opacity="0.5"
-                cx="29.1176471"
-                cy="29.1402439"
-                rx="10.7843137"
-                ry="10.7926829"
-              />
-              <path
-                id="Oval-2"
-                d="M29.1176471,39.9329268 L29.1176471,18.347561 C23.1616351,18.347561 18.3333333,23.1796097 18.3333333,29.1402439 C18.3333333,35.1008781 23.1616351,39.9329268 29.1176471,39.9329268 Z"
-                fill="#BACAD9"
-              />
-              <g id="Group-9" opacity="0.45" transform="translate(172.000000, 131.000000)" fill="#E6A1A6">
-                <ellipse id="Oval-2-Copy-2" cx="7.01960784" cy="7.14634146" rx="6.47058824" ry="6.47560976" />
-                <path
-                  id="Oval-2-Copy-2"
-                  d="M0.549019608,13.6219512 C4.12262681,13.6219512 7.01960784,10.722722 7.01960784,7.14634146 C7.01960784,3.56996095 4.12262681,0.670731707 0.549019608,0.670731707 L0.549019608,13.6219512 Z"
-                  transform="translate(3.784314, 7.146341) scale(-1, 1) translate(-3.784314, -7.146341) "
-                />
-              </g>
-              <ellipse id="Oval-10" fill="#CFDAE6" cx="218.382353" cy="138.685976" rx="1.61764706" ry="1.61890244" />
-              <ellipse
-                id="Oval-10-Copy-2"
-                fill="#E0B4B7"
-                opacity="0.35"
-                cx="179.558824"
-                cy="175.381098"
-                rx="1.61764706"
-                ry="1.61890244"
-              />
-              <ellipse
-                id="Oval-10-Copy"
-                fill="#E0B4B7"
-                opacity="0.35"
-                cx="180.098039"
-                cy="102.530488"
-                rx="2.15686275"
-                ry="2.15853659"
-              />
-              <path id="Path-11" d="M28.9985381,29.9671598 L171.151018,132.876024" stroke="#CFDAE6" opacity="0.8" />
-            </g>
-            <g
-              id="Group-10"
-              opacity="0.799999952"
-              transform="translate(1054.100635, 36.659317) rotate(-11.000000) translate(-1054.100635, -36.659317) translate(1026.600635, 4.659317)"
+          </div>
+          <el-form-item prop="pass">
+            <el-input
+              v-model="ruleForm2.pass"
+              show-password
+              :prefix-icon="Unlock"
+              type="pass"
+              autocomplete="off"
+              class="h-[40px]"
+              placeholder="请输入密码"
+            />
+          </el-form-item>
+          <el-form-item prop="checkPass">
+            <el-input
+              v-model="ruleForm2.checkPass"
+              show-password
+              :prefix-icon="Lock"
+              type="pass"
+              autocomplete="off"
+              class="h-[40px]"
+              placeholder="请再次输入密码"
+            />
+          </el-form-item>
+          <div class="flex justify-between">
+            <el-button v-if="show2" type="primary" size="large" class="w-[48%] h-[40px]" @click="onLogin"
+              >注册</el-button
             >
-              <ellipse
-                id="Oval-7"
-                stroke="#CFDAE6"
-                stroke-width="0.941176471"
-                cx="43.8135593"
-                cy="32"
-                rx="11.1864407"
-                ry="11.2941176"
-              />
-              <g id="Group-12" transform="translate(34.596774, 23.111111)" fill="#BACAD9">
-                <ellipse id="Oval-7" opacity="0.45" cx="9.18534718" cy="8.88888889" rx="8.47457627" ry="8.55614973" />
-                <path
-                  id="Oval-7"
-                  d="M9.18534718,17.4450386 C13.8657264,17.4450386 17.6599235,13.6143199 17.6599235,8.88888889 C17.6599235,4.16345787 13.8657264,0.332739156 9.18534718,0.332739156 L9.18534718,17.4450386 Z"
-                />
-              </g>
-              <path
-                id="Path-2"
-                d="M34.6597385,24.809694 L5.71666084,4.76878945"
-                stroke="#CFDAE6"
-                stroke-width="0.941176471"
-              />
-              <ellipse
-                id="Oval"
-                stroke="#CFDAE6"
-                stroke-width="0.941176471"
-                cx="3.26271186"
-                cy="3.29411765"
-                rx="3.26271186"
-                ry="3.29411765"
-              />
-              <ellipse id="Oval-Copy" fill="#F7E1AD" cx="2.79661017" cy="61.1764706" rx="2.79661017" ry="2.82352941" />
-              <path
-                id="Path-10"
-                d="M34.6312443,39.2922712 L5.06366663,59.785082"
-                stroke="#CFDAE6"
-                stroke-width="0.941176471"
-              />
-            </g>
-            <g
-              id="Group-19"
-              opacity="0.33"
-              transform="translate(1282.537219, 446.502867) rotate(-10.000000) translate(-1282.537219, -446.502867) translate(1142.537219, 327.502867)"
+            <el-button v-else type="primary" size="large" class="w-[48%] h-[40px]" @click="setPass">重置密码</el-button>
+            <el-button plain size="large" class="w-[48%] h-[40px]" @click="(show = !show), (show2 = true)"
+              >去登录</el-button
             >
-              <g
-                id="Group-17"
-                transform="translate(141.333539, 104.502742) rotate(275.000000) translate(-141.333539, -104.502742) translate(129.333539, 92.502742)"
-                fill="#BACAD9"
-              >
-                <circle id="Oval-4" opacity="0.45" cx="11.6666667" cy="11.6666667" r="11.6666667" />
-                <path
-                  id="Oval-4"
-                  d="M23.3333333,23.3333333 C23.3333333,16.8900113 18.1099887,11.6666667 11.6666667,11.6666667 C5.22334459,11.6666667 0,16.8900113 0,23.3333333 L23.3333333,23.3333333 Z"
-                  transform="translate(11.666667, 17.500000) scale(-1, -1) translate(-11.666667, -17.500000) "
-                />
-              </g>
-              <circle id="Oval-5-Copy-6" fill="#CFDAE6" cx="201.833333" cy="87.5" r="5.83333333" />
-              <path
-                id="Path-17"
-                d="M143.5,88.8126685 L155.070501,17.6038544"
-                stroke="#BACAD9"
-                stroke-width="1.16666667"
-              />
-              <path
-                id="Path-18"
-                d="M17.5,37.3333333 L127.466252,97.6449735"
-                stroke="#BACAD9"
-                stroke-width="1.16666667"
-              />
-              <polyline
-                id="Path-19"
-                stroke="#CFDAE6"
-                stroke-width="1.16666667"
-                points="143.902597 120.302281 174.935455 231.571342 38.5 147.510847 126.366941 110.833333"
-              />
-              <path
-                id="Path-20"
-                d="M159.833333,99.7453842 L195.416667,89.25"
-                stroke="#E0B4B7"
-                stroke-width="1.16666667"
-                opacity="0.6"
-              />
-              <path
-                id="Path-24"
-                d="M205.333333,82.1372105 L238.719406,36.1666667"
-                stroke="#BACAD9"
-                stroke-width="1.16666667"
-              />
-              <path
-                id="Path-25"
-                d="M266.723424,132.231988 L207.083333,90.4166667"
-                stroke="#CFDAE6"
-                stroke-width="1.16666667"
-              />
-              <circle id="Oval-5" fill="#C1D1E0" cx="156.916667" cy="8.75" r="8.75" />
-              <circle id="Oval-5-Copy-3" fill="#C1D1E0" cx="39.0833333" cy="148.75" r="5.25" />
-              <circle id="Oval-5-Copy-2" fill-opacity="0.6" fill="#D1DEED" cx="8.75" cy="33.25" r="8.75" />
-              <circle
-                id="Oval-5-Copy-4"
-                fill-opacity="0.6"
-                fill="#D1DEED"
-                cx="243.833333"
-                cy="30.3333333"
-                r="5.83333333"
-              />
-              <circle id="Oval-5-Copy-5" fill="#E0B4B7" cx="175.583333" cy="232.75" r="5.25" />
-            </g>
-          </g>
-        </g>
-      </g>
-    </svg>
-    111
-    <Button>1111</Button>
-    <Switch v-model:checked="checked" />
+          </div>
+        </el-form>
+      </el-space>
+    </div>
+    <div class="absolute bottom-0 w-screen py-3 flex justify-center items-center">
+      <span class="text-[16px] text-[#999]">© 2021 HOPU | 鄂ICP备29218126号-1 </span>
+    </div>
   </div>
-  <el-switch v-model="value1" />
-  {{ data }}
 </template>
 <script lang="ts" setup>
-// import { Button, Switch } from 'ant-design-vue';
-const { data } = useRequest(() => {
-  return Promise.resolve('hahaha');
+import type { FormInstance, FormRules } from 'element-plus';
+import { User, Message, Lock, Unlock } from '@element-plus/icons-vue';
+import loginApi from '@/api/modules/login';
+
+const checked = ref(false);
+const show = ref(true); // 注册
+const show2 = ref(true); // 忘记密码
+const code = ref(false); // 判断用户名是否存在/重名
+const yzm = ref('发送验证码');
+const email = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/; // 邮箱正则
+const pass = /[a-zA-Z0-9]\w{6,12}$/g;
+// 登录验证
+// 登录信息
+const ruleForm = reactive({
+  name: '',
+  pass: '',
 });
-const checked = ref(true);
-const value1 = ref(true);
+// 登录用户名部分
+const ruleFormRef = ref<FormInstance>();
+const validateName = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入用户名'));
+  } else {
+    if (ruleForm.name !== '') {
+      if (!ruleFormRef.value) return;
+      ruleFormRef.value.validateField('checkPass', () => null);
+    }
+    loginApi
+      .getVerification({ username: value })
+      .then((res: object) => {
+        if ((res as { code: number }).code === 0) {
+          console.log('用户已存在');
+          code.value = true;
+          callback();
+        } else if ((res as { code: number }).code === 404) {
+          callback(new Error('用户名不存在'));
+          code.value = false;
+        }
+      })
+      .catch((err: object) => {
+        console.log(err);
+      });
+  }
+};
+// 登录密码部分
+const validatePass = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入密码'));
+  } else {
+    callback();
+  }
+};
+// 登录按钮
+const onSubmit = () => {
+  const data = {
+    username: ruleForm.name,
+    password: ruleForm.pass,
+  };
+  console.log(data);
+  if (data.password !== '' && data.username !== '' && code.value == true) {
+    console.log('用户已存在');
+    loginApi
+      .postVerification(data)
+      .then((res: object) => {
+        console.log(res);
+      })
+      .catch((err: object) => {
+        console.log(err);
+      });
+  }
+};
+const rules = reactive<FormRules<typeof ruleForm>>({
+  name: [{ validator: validateName, trigger: 'blur' }],
+  pass: [{ validator: validatePass, trigger: 'blur' }],
+});
+
+// 注册验证
+const ruleFormRef2 = ref<FormInstance>();
+const ruleForm2 = reactive({
+  mail: '',
+  verificationCode: '',
+  pass: '',
+  checkPass: '',
+  name: '',
+});
+// 注册用户名验证
+const flagName = ref(false);
+const validateNames = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入用户名'));
+  } else {
+    loginApi
+      .getVerification({ username: value })
+      .then((res: object) => {
+        console.log(res);
+        if ((res as { code: number }).code === 0) {
+          callback(new Error('用户名重复'));
+          flagName.value = false;
+          callback();
+        } else if ((res as { code: number }).code === 404) {
+          console.log('用户名可用');
+          flagName.value = true;
+        }
+      })
+      .catch((err: object) => {
+        console.log(err);
+      });
+  }
+};
+// 邮箱验证
+const flagEmail = ref(false);
+const validateMail = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入邮箱地址'));
+  } else {
+    console.log(show2.value === false);
+    if (email.test(value)) {
+      loginApi
+        .getVerification({ email: value })
+        .then((res: object) => {
+          console.log(res);
+          if ((res as { code: number }).code === 0) {
+            if (show2.value === true) {
+              callback(new Error('邮箱有误'));
+              flagEmail.value = false;
+            } else {
+              callback();
+              flagEmail.value = true;
+            }
+          } else if ((res as { code: number }).code === 404) {
+            if (show2.value === false) {
+              callback(new Error('邮箱有误'));
+              flagEmail.value = false;
+            } else {
+              callback();
+              flagEmail.value = true;
+            }
+          }
+        })
+        .catch((err: object) => {
+          console.log(err);
+        });
+    } else {
+      callback(new Error('请输入正确的邮箱地址'));
+    }
+  }
+};
+const validateCode = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入验证码'));
+  } else {
+    callback();
+  }
+};
+// 发送验证码
+const disabled = ref(false);
+const onEmali = () => {
+  if (ruleForm2.mail !== '') {
+    loginApi
+      .getVerification({ email: ruleForm2.mail })
+      .then((res: object) => {
+        console.log(res);
+        if ((res as { code: number }).code === 0) {
+          return false;
+        }
+        if ((res as { code: number }).code === 404) {
+          loginApi
+            .postVerificationCodes({
+              target: ruleForm2.mail,
+              type: 1,
+            })
+            .then((ress) => {
+              console.log(ress);
+            })
+            .catch((err: object) => {
+              console.log(err);
+            });
+          disabled.value = true;
+          let i = 25;
+          yzm.value = `重新发送${i}`;
+          const t = setInterval(() => {
+            if (i === 0) {
+              disabled.value = false;
+              yzm.value = '获取验证码';
+              clearInterval(t);
+            } else {
+              i -= 1;
+              yzm.value = `重新发送${i}`;
+            }
+          }, 1000);
+        }
+        return false;
+      })
+      .catch((err: object) => {
+        console.log(err);
+      });
+  }
+};
+// 密码
+const flagPass = ref(false);
+const validatePass2 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入密码'));
+  } else if (ruleForm2.pass !== '' && pass.test(ruleForm2.pass)) {
+    callback();
+    flagPass.value = true;
+  } else {
+    callback(new Error('密码是6-12位字母和数字'));
+    flagPass.value = false;
+  }
+};
+// 验证两次密码是否一致
+const flagPass2 = ref(false);
+const validateCheckPass = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入密码'));
+  } else if (value !== ruleForm2.pass) {
+    callback(new Error('两次输入密码不一致'));
+    flagPass2.value = false;
+  } else {
+    callback();
+    flagPass2.value = true;
+  }
+};
+
+// 注册
+const onLogin = () => {
+  const data = {
+    username: ruleForm2.name,
+    email: ruleForm2.mail,
+    code: ruleForm2.verificationCode,
+    password: ruleForm2.pass,
+    passwordConfirm: ruleForm2.checkPass,
+    verification_type: 1,
+    avatar: 'https://fastly.picsum.photos/id/786/100/100.jpg?hmac=U1abk7VHh3Xe1NJZtRkB0hEL0TEHGWQKnuE5iO_kNHY',
+  };
+  if (
+    flagEmail.value === true &&
+    flagName.value === true &&
+    flagPass.value === true &&
+    flagPass2.value === true &&
+    data.code !== ''
+  ) {
+    console.log(data);
+    loginApi
+      .postLogin(data)
+      .then((res: object) => {
+        console.log(res);
+        if ((res as { code: number }).code === 0) {
+          console.log(res);
+        } else if ((res as { code: number }).code === 404) {
+          console.log(res);
+        }
+      })
+      .catch((err: object) => {
+        console.log(err);
+      });
+  }
+};
+
+// 重置密码
+const setPass = () => {
+  const data = {
+    code: ruleForm2.verificationCode,
+    email: ruleForm2.mail,
+    password: ruleForm2.pass,
+    passwordConfirm: ruleForm2.checkPass,
+  };
+  if (flagEmail.value === true && flagPass.value === true && flagPass2.value === true && data.code !== '') {
+    loginApi
+      .putVerificationSetpassword(data)
+      .then((res: object) => {
+        console.log(res);
+        if ((res as { code: number }).code === 0) {
+          console.log(res);
+        } else if ((res as { code: number }).code === 404) {
+          console.log(res);
+        }
+      })
+      .catch((err: object) => {
+        console.log(err);
+      });
+  }
+};
+
+const rules2 = reactive<FormRules<typeof ruleForm2>>({
+  mail: [{ validator: validateMail, trigger: 'blur' }],
+  verificationCode: [{ validator: validateCode, trigger: 'blur' }],
+  checkPass: [{ validator: validateCheckPass, trigger: 'blur' }],
+  pass: [{ validator: validatePass2, trigger: 'blur' }],
+  name: [{ validator: validateNames, trigger: 'blur' }],
+});
 </script>
