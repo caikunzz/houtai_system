@@ -23,11 +23,13 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // TODO 在这里可以加上想要在请求发送前处理的逻辑
     // TODO 比如 loading 等
-    const data = store.get('user_token');
-    const head = config;
-    if (data.accessToken && data.refreshToken) {
-      // 设置请求头的访问令牌
-      head.headers!.Authorization = `Bearer ${data.accessToken}`;
+    if (store.get('user_token') !== undefined) {
+      const data = store.get('user_token');
+      const head = config;
+      if (data.accessToken && data.refreshToken) {
+        // 设置请求头的访问令牌
+        head.headers!.Authorization = `Bearer ${data.accessToken}`;
+      }
     }
     return config;
   },

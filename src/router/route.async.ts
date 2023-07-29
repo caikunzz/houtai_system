@@ -18,7 +18,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: '全部项目-Arco',
       icon: '',
-      requiresAuth: true,
+      // requiresAuth: true,
     },
     component: () => import('@/views/myProject/projectView.vue'),
   },
