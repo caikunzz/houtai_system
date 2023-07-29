@@ -10,5 +10,6 @@ const loginApi = {
     service.post(`http://192.168.122.36:1024/api/v1/verification_codes`, params),
   putVerificationSetpassword: (params: object) =>
     service.put(`http://192.168.122.36:1024/api/v1/users/password`, params),
+  getVerificationInfo: () => service.get(`http://192.168.122.36:1024/api/v1/users/user_info`),
 };
 export default loginApi;

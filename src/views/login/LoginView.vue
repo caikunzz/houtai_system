@@ -277,6 +277,9 @@ const onSuccess = () => {
       .then((res: object) => {
         console.log(res);
         open('成功', `登录成功`);
+        loginApi.getVerificationInfo().then((ress: object) => {
+          console.log(ress);
+        });
       })
       .catch((err: object) => {
         console.log(err);

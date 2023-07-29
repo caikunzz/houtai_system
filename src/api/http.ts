@@ -23,6 +23,12 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // TODO 在这里可以加上想要在请求发送前处理的逻辑
     // TODO 比如 loading 等
+    const data = store.get('user_token');
+    const head = config;
+    if (data.accessToken && data.refreshToken) {
+      head.headers!.Authorization = `Bearer ${data.accessToken}`;
+    }
+
     return config;
   },
   (error: AxiosError) => {
@@ -35,7 +41,7 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   if (response.status === 200) {
     console.log(response.config.url);
 
-    if (response.config.url === 'http://192.168.122.36:1024/api/v1/users/login') {
+    if (response.config.url == '/api/v1/users/login') {
       console.log(response.data.data);
       if (response.data.data) {
         store.set('user_token', response.data.data);
@@ -46,6 +52,7 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   ElMessage.info(JSON.stringify(response.status));
   return response;
 });
+
 const service = {
   get<T = any>(url: string, data?: object): Promise<T> {
     return axiosInstance.get(url, { params: data });
