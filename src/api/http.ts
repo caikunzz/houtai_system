@@ -26,9 +26,9 @@ axiosInstance.interceptors.request.use(
     const data = store.get('user_token');
     const head = config;
     if (data.accessToken && data.refreshToken) {
+      // 设置请求头的访问令牌
       head.headers!.Authorization = `Bearer ${data.accessToken}`;
     }
-
     return config;
   },
   (error: AxiosError) => {

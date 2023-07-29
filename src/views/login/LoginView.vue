@@ -177,6 +177,7 @@ import { User, Message, Lock, Unlock } from '@element-plus/icons-vue';
 import Vcode from 'vue3-puzzle-vcode';
 import store from 'store';
 import loginApi from '@/api/modules/login';
+import router from '@/router';
 
 console.log(store.get('user_token'));
 const isShow = ref(false);
@@ -277,8 +278,11 @@ const onSuccess = () => {
       .then((res: object) => {
         console.log(res);
         open('成功', `登录成功`);
-        loginApi.getVerificationInfo().then((ress: object) => {
+        loginApi.getVerificationInfo().then((ress: { code: number; data: object; msg: string }) => {
           console.log(ress);
+          if (ress.msg === '请求成功') {
+            router.push('/');
+          }
         });
       })
       .catch((err: object) => {

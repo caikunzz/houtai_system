@@ -13,13 +13,14 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/home/index.vue'),
   },
   {
-    path: '/process',
-    name: 'process',
+    path: '/projectView',
+    name: 'projectView',
     meta: {
-      title: 'Template configuration process',
+      title: '全部项目-Arco',
       icon: '',
+      requiresAuth: true,
     },
-    component: () => import('@/views/example/MarkdownPage.vue'),
+    component: () => import('@/views/myProject/projectView.vue'),
   },
 ];
 
