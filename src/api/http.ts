@@ -25,13 +25,13 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // TODO 在这里可以加上想要在请求发送前处理的逻辑
     // TODO 比如 loading 等
-    console.log(config);
+
     const newconfig = config;
     const UsetToken = store.get('user_token');
-    if (UsetToken) {
-      newconfig.xsrfCookieName = UsetToken.accessToken;
-      newconfig.xsrfHeaderName = UsetToken.refreshToken;
+    if (UsetToken.accessToken && newconfig.headers) {
+      newconfig.headers.Authorization = `Bearer ${UsetToken.accessToken}`;
     }
+    console.log(config);
     return newconfig;
   },
   (error: AxiosError) => {
@@ -44,7 +44,7 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.status === 200) {
       if (response.config.url == '/api/v1/users/login') {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         if (response.data.data) {
           store.set('user_token', response.data.data);
         }
