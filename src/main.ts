@@ -2,6 +2,7 @@
 import { createI18n } from 'vue-i18n';
 import messages from '@intlify/vite-plugin-vue-i18n/messages';
 // vue router
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import router from '@/router/index';
 // pinia
 import store from '@/store';
@@ -25,3 +26,6 @@ app.use(router).use(store);
 app.use(i18n);
 
 app.mount('#app');
+Object.entries(ElementPlusIconsVue).forEach((item) => {
+  app.component(item[0], item[1]);
+});

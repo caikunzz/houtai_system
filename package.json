@@ -12,6 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@types/store": "^2.0.2",
     "@vueuse/core": "^8.9.2",
     "ant-design-vue": "^4.0.0",

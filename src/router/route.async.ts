@@ -20,11 +20,6 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/views/example/MarkdownPage.vue'),
   },
-  {
-    path: '/',
-    name: 'login',
-    component: () => import('@/views/login/LoginView.vue'),
-  },
 ];
 
 export default asyncRoutes;

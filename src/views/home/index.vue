@@ -1,6 +1,7 @@
 <template>
   <div class="container max-w-3xl mx-auto mt-40">
     <div class="h-60 mb-8">
+      <el-icon><Plus /></el-icon>
       <div class="w-52 h-52 mx-auto mb-4"><vitecamp class="w-52 h-52"></vitecamp></div>
     </div>
     <div class="text-center text-md">
