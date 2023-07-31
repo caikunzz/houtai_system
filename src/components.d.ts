@@ -8,6 +8,7 @@ export {};
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElAside: typeof import('element-plus/es')['ElAside'];
+    ElAvatar: typeof import('element-plus/es')['ElAvatar'];
     ElButton: typeof import('element-plus/es')['ElButton'];
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox'];
     ElCol: typeof import('element-plus/es')['ElCol'];
@@ -35,9 +36,11 @@ declare module '@vue/runtime-core' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip'];
     EnProcess: typeof import('./components/EnProcess.md')['default'];
     IAkarIconsGithubFill: typeof import('~icons/akar-icons/github-fill')['default'];
+    IBiBell: typeof import('~icons/bi/bell')['default'];
     ILaLanguage: typeof import('~icons/la/language')['default'];
     IMdiContentDuplicate: typeof import('~icons/mdi/content-duplicate')['default'];
     IMdiHomeSearchOutline: typeof import('~icons/mdi/home-search-outline')['default'];
+    IOcticonPeople16: typeof import('~icons/octicon/people16')['default'];
     IPhCloudMoonBold: typeof import('~icons/ph/cloud-moon-bold')['default'];
     IPhSunHorizonBold: typeof import('~icons/ph/sun-horizon-bold')['default'];
     IRiArticleLine: typeof import('~icons/ri/article-line')['default'];

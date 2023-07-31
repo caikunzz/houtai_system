@@ -1,6 +1,6 @@
 <template>
-  <div class="flex h-screen overflow-hidden bg-[#f5f5f5]">
-    <div class="w-screen mt-[65px] flex">
+  <div class="W-[100%] flex bg-[#f5f5f5]" :class="`h-[${height}]`">
+    <div class="flex w-[100%]">
       <!-- 侧边菜单开始 -->
       <el-menu
         default-active="2"
@@ -63,7 +63,7 @@
       </el-menu>
       <!-- 侧边菜单结束 -->
       <!-- 项目列表开始 -->
-      <div class="w-[100%] p-[20px] overflow-auto">
+      <div class="w-[100%] h-[100%] p-[20px] overflow-auto">
         <div class="bg-[#fff] p-[20px] text-[14px] relative">
           <el-button type="primary" :icon="Plus" size="large" class="absolute right-6 top-[.75rem] h-[40px]"
             >创建新项目</el-button
@@ -90,6 +90,7 @@
                 background
                 layout="prev, pager, next"
                 :total="data.data.count"
+                class="justify-center mt-[15px]"
               />
             </el-tab-pane>
             <el-tab-pane label="我的收藏" name="second">Config</el-tab-pane>
@@ -156,7 +157,7 @@ projectApi
     data.value.data = res.data;
     data.value.code = res.code;
     data.value.msg = res.msg;
-    listData.data = groupArray(res.data.rows.reverse(), 10);
+    listData.data = groupArray(res.data.rows.reverse(), 11);
     console.log(listData.data);
   })
   .catch((err: any) => {

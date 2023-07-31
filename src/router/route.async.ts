@@ -3,22 +3,15 @@ import { RouteRecordRaw } from 'vue-router';
 import Layout from '@/Layout/LaoutIndex.vue';
 
 const asyncRoutes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/projectView',
-  //   name: 'projectView',
-  //   meta: {
-  //     title: '全部项目-Arco',
-  //     icon: '',
-  //     // requiresAuth: true,
-  //   },
-  //   component: () => import('@/views/myProject/projectView.vue'),
-  // },
+  {
+    path: '/',
+    redirect: '/Home/index',
+  },
   {
     path: '/Home',
     name: 'Home',
     meta: {
-      title: '',
-      icon: '',
+      requiresAuth: true,
     },
     component: Layout,
     children: [
@@ -26,6 +19,19 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         path: 'index',
         name: 'index',
         component: () => import('@/views/Home/homeView.vue'),
+        meta: {
+          title: '首页-Arco',
+          icon: '',
+        },
+      },
+      {
+        path: 'projectView',
+        name: 'projectView',
+        meta: {
+          title: '全部项目-Arco',
+          icon: '',
+        },
+        component: () => import('@/views/myProject/projectView.vue'),
       },
     ],
   },
