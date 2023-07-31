@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElMessage } from 'element-plus';
 import vitecamp from '@/assets/svg/vitecamp.svg?component';
 
 const { t } = useI18n();
