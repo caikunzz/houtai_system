@@ -636,7 +636,7 @@ const RegsubmitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!');
+      // console.log('submit!');
       loginApi.RegUsers({
         avatar: 'https://fastly.picsum.photos/id/490/100/100.jpg?hmac=2AzNYM110aBYfQ0pQJXlip_vrPwtx3aG72MyUmxLgrU',
         code: RegruleForm.num,
