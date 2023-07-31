@@ -70,8 +70,20 @@
           >
           <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
             <el-tab-pane label="全部项目" name="first">
-              <ul v-for="(item, index) in data.data" :key="index">
-                <li>{{ item }}</li>
+              <ul v-for="(item, index) in listData.data[currentPage - 1]" :key="index">
+                <li class="flex justify-between p-[10px]">
+                  <div class="flex">
+                    <img :src="`http://192.168.122.36:1024${item.cover}`" alt="" class="w-[50px] h-[50px]" />
+                    <div>
+                      <div class="flex items-center">
+                        <span>{{ item.name }}</span>
+                        <el-tag class="ml-2" type="success" size="small">公开</el-tag>
+                      </div>
+                      <p></p>
+                    </div>
+                  </div>
+                  <div></div>
+                </li>
               </ul>
               <el-pagination
                 v-model:current-page="currentPage"
@@ -109,6 +121,7 @@ import {
   Plus,
 } from '@element-plus/icons-vue';
 
+import type { projectList } from '@/types';
 // get/post请求
 import projectApi from '@/api/modules/project';
 
@@ -126,13 +139,25 @@ const data = ref({
   },
   msg: String,
 });
-
+const listData: {
+  data: Array<any>;
+} = {
+  data: [], // 初始化为空数组
+};
+const groupArray = (arr: [], groupSize: number) => {
+  const result = Array.from({ length: Math.ceil(arr.length / groupSize) }, (_, index) =>
+    arr.slice(index * groupSize, index * groupSize + groupSize),
+  );
+  return result;
+};
 projectApi
   .getProjectsList(getData)
   .then((res) => {
     data.value.data = res.data;
     data.value.code = res.code;
     data.value.msg = res.msg;
+    listData.data = groupArray(res.data.rows.reverse(), 10);
+    console.log(listData.data);
   })
   .catch((err) => {
     console.log(err);
