@@ -3,16 +3,6 @@ import { RouteRecordRaw } from 'vue-router';
 
 const asyncRoutes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'home',
-    meta: {
-      title: '',
-      icon: '',
-      requiresAuth: true,
-    },
-    component: () => import('@/views/home/index.vue'),
-  },
-  {
     path: '/projectView',
     name: 'projectView',
     meta: {
