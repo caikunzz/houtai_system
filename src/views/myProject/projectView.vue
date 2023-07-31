@@ -2,61 +2,59 @@
   <div class="flex h-screen overflow-hidden bg-[#f5f5f5]">
     <div class="w-screen mt-[65px] flex">
       <!-- 侧边菜单开始 -->
-      <el-menu
-        default-active="2"
-        class="relative el-menu-vertical-demo w-[180px] box-shadow overflow-hidden"
-        :style="{ height: `${height}` }"
-        @open="handleOpen"
-        @close="handleClose"
-        :collapse="lefts"
-      >
+      <el-menu default-active="2" class="relative el-menu-vertical-demo w-[180px] box-shadow overflow-hidden"
+        :style="{ height: `${height}` }" @open="handleOpen" @close="handleClose" :collapse="lefts">
         <el-sub-menu index="1">
           <template #title>
-            <el-icon><Expand color="#303133" /></el-icon>
+            <el-icon>
+              <Expand color="#303133" />
+            </el-icon>
             <span>项目列表</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-1"
-              ><el-icon><Tickets /></el-icon>全部项目</el-menu-item
-            >
-            <el-menu-item index="1-2"
-              ><el-icon><Star /></el-icon>我的收藏</el-menu-item
-            >
-            <el-menu-item index="1-3"
-              ><el-icon><Briefcase /></el-icon>已归档项目</el-menu-item
-            >
-            <el-menu-item index="1-4"
-              ><el-icon><Delete /></el-icon>回收站</el-menu-item
-            >
+            <el-menu-item index="1-1"><el-icon>
+                <Tickets />
+              </el-icon>全部项目</el-menu-item>
+            <el-menu-item index="1-2"><el-icon>
+                <Star />
+              </el-icon>我的收藏</el-menu-item>
+            <el-menu-item index="1-3"><el-icon>
+                <Briefcase />
+              </el-icon>已归档项目</el-menu-item>
+            <el-menu-item index="1-4"><el-icon>
+                <Delete />
+              </el-icon>回收站</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
         <el-menu-item index="2">
-          <el-icon><Notebook /></el-icon>
+          <el-icon>
+            <Notebook />
+          </el-icon>
           <span>项目模板</span>
         </el-menu-item>
         <el-sub-menu index="3">
           <template #title>
-            <el-icon><BellFilled color="#303133" /></el-icon>
+            <el-icon>
+              <BellFilled color="#303133" />
+            </el-icon>
             <span>消息提醒</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-1"
-              ><el-icon><ChatDotRound /></el-icon>@我</el-menu-item
-            >
-            <el-menu-item index="1-2"
-              ><el-icon><Loading /></el-icon>通知</el-menu-item
-            >
-            <el-menu-item index="1-3"
-              ><el-icon><Message /></el-icon>私信</el-menu-item
-            >
+            <el-menu-item index="1-1"><el-icon>
+                <ChatDotRound />
+              </el-icon>@我</el-menu-item>
+            <el-menu-item index="1-2"><el-icon>
+                <Loading />
+              </el-icon>通知</el-menu-item>
+            <el-menu-item index="1-3"><el-icon>
+                <Message />
+              </el-icon>私信</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
-        <div
-          class="absolute bottom-0 flex justify-center items-center w-[100%] h-[40px] bg-gray-700"
-          @click="lefts = !lefts"
-        >
-          <el-icon
-            ><ArrowLeftBold v-if="lefts === false" color="#ccc" size="45" />
+        <div class="absolute bottom-0 flex justify-center items-center w-[100%] h-[40px] bg-gray-700"
+          @click="lefts = !lefts">
+          <el-icon>
+            <ArrowLeftBold v-if="lefts === false" color="#ccc" size="45" />
             <ArrowRightBold v-if="lefts === true" color="#ccc" size="45" />
           </el-icon>
         </div>
@@ -65,20 +63,15 @@
       <!-- 项目列表开始 -->
       <div class="w-[100%] p-[20px] overflow-auto">
         <div class="bg-[#fff] p-[20px] text-[14px] relative">
-          <el-button type="primary" :icon="Plus" size="large" class="absolute right-6 top-[.75rem] h-[40px]"
-            >创建新项目</el-button
-          >
+          <el-button type="primary" :icon="Plus" size="large"
+            class="absolute right-6 top-[.75rem] h-[40px]">创建新项目</el-button>
           <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
             <el-tab-pane label="全部项目" name="first">
               <ul v-for="(item, index) in data.data" :key="index">
                 <li>{{ item }}</li>
               </ul>
-              <el-pagination
-                v-model:current-page="currentPage"
-                background
-                layout="prev, pager, next"
-                :total="data.data.count"
-              />
+              <el-pagination v-model:current-page="currentPage" background layout="prev, pager, next"
+                :total="data.data.count" />
             </el-tab-pane>
             <el-tab-pane label="我的收藏" name="second">Config</el-tab-pane>
             <el-tab-pane label="已归档项目" name="third">Role</el-tab-pane>
@@ -180,7 +173,8 @@ const handleClose = (key: string, keyPath: string[]) => {
     10.8px 0px 6.4px rgba(0, 0, 0, 0.02), 19.2px 0px 11.4px rgba(0, 0, 0, 0), 35.9px 0px 21.3px rgba(0, 0, 0, -0.002),
     86px 0px 51px rgba(0, 0, 0, -0.002);
 }
-.demo-tabs > .el-tabs__content {
+
+.demo-tabs>.el-tabs__content {
   color: #6b778c;
   font-size: 14px;
   font-weight: 600;
