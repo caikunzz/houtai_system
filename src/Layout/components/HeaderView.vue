@@ -19,7 +19,7 @@
     <el-menu
       :default-active="MenuActive"
       clas
-      class="el-menu-demo ml-10 flex-1"
+      class="el-menu-demo ml-10 flex-1 border-0"
       mode="horizontal"
       @select="handleSelect"
     >

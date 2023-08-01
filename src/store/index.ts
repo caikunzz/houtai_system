@@ -1,5 +1,7 @@
-import { createPinia } from 'pinia';
+import user from './module/user';
 
-const store = createPinia();
-
-export default store;
+export default function useStore() {
+  return {
+    user: user(),
+  };
+}
