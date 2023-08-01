@@ -1,9 +1,11 @@
-import store from 'store';
 import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
+import store from 'store';
 import exceptionRoutes from '@/router/route.exception';
 import asyncRoutes from '@/router/route.async';
 import commonRoutes from '@/router/route.common';
+
+const WhiteSheet: string[] = ['/login']; // 路由白名单
 
 const routes: Array<RouteRecordRaw> = [
   // 无鉴权的业务路由 ex:登录
@@ -27,11 +29,17 @@ const router: Router = createRouter({
  * @return {*}
  */
 router.beforeEach((to, from, next) => {
-  console.log('全局路由前置守卫：to,from\n', to, from);
-  if (to.meta.requiresAuth && store.get('user_token') === undefined) {
-    next('/login');
-  } else {
+  const token = store.get('user_token') !== undefined;
+  if (token) {
+    if (to.path === '/login') {
+      next({ path: '/' });
+    } else {
+      next();
+    }
+  } else if (WhiteSheet.indexOf(to.path) > -1) {
     next();
+  } else {
+    next(`/login?redirect=${to.path}`);
   }
   // 设置页面标题;
   document.title = (to.meta.title as string) || import.meta.env.VITE_APP_TITLE;
@@ -40,8 +48,7 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-router.afterEach((to, from) => {
-  console.log('全局路由后置守卫：to,from\n', to, from);
+router.afterEach(() => {
   NProgress.done();
 });
 
