@@ -42,7 +42,7 @@
               <p class="truncate text-[12px] text-[#8C8C8C] leading-[24px]">
                 {{ data.intro ? data.intro : '暂无介绍' }}
               </p>
-              <el-progress :percentage="data.progress" stroke-width="2" :show-text="false" class="my-2" />
+              <el-progress :percentage="data.progress" :stroke-width="2" :show-text="false" class="my-2" />
               <div class="flex items-center justify-between">
                 <p class="text-[14px] text-[#8C8C8C]">{{ data.creator.username }}</p>
                 <p class="text-[14px] text-[#8C8C8C]">
@@ -108,8 +108,8 @@
                 <div class="flex items-center pl-3">
                   <div>
                     <el-tag v-if="item.task_priority_id === 2">普通</el-tag>
-                    <el-tag v-if="item.task_priority_id === 5" type="danger">普通</el-tag>
-                    <el-tag v-if="item.task_priority_id === 4" type="warning">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 5" type="danger">非常紧急</el-tag>
+                    <el-tag v-if="item.task_priority_id === 4" type="warning">紧急</el-tag>
                   </div>
                   <p class="pl-3 text-[#569CEE] text-xs">{{ item.name }}</p>
                 </div>
@@ -126,8 +126,8 @@
                 <div class="flex items-center pl-3">
                   <div>
                     <el-tag v-if="item.task_priority_id === 2">普通</el-tag>
-                    <el-tag v-if="item.task_priority_id === 5" type="danger">普通</el-tag>
-                    <el-tag v-if="item.task_priority_id === 4" type="warning">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 5" type="danger">非常紧急</el-tag>
+                    <el-tag v-if="item.task_priority_id === 4" type="warning">紧急</el-tag>
                   </div>
                   <p class="pl-3 text-[#569CEE] text-xs">{{ item.name }}</p>
                 </div>
@@ -144,8 +144,8 @@
                 <div class="flex items-center pl-3">
                   <div>
                     <el-tag v-if="item.task_priority_id === 2">普通</el-tag>
-                    <el-tag v-if="item.task_priority_id === 5" type="danger">普通</el-tag>
-                    <el-tag v-if="item.task_priority_id === 4" type="warning">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 5" type="danger">非常紧急</el-tag>
+                    <el-tag v-if="item.task_priority_id === 4" type="warning">紧急</el-tag>
                   </div>
                   <p class="pl-3 text-[#569CEE] text-xs">{{ item.name }}</p>
                 </div>
@@ -204,6 +204,7 @@ const executed = ref([
     project: {
       name: String,
     },
+    task_priority_id: 0,
   },
 ]);
 
@@ -214,7 +215,7 @@ const participated = ref([
     project: {
       name: String,
     },
-    task_priority_id: Number,
+    task_priority_id: 0,
   },
 ]);
 
