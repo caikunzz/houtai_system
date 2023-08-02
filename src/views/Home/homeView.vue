@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F1F1F1] min-w-1200px">
+  <div class="bg-[#F1F1F1]">
     <!-- 用户信息部分 -->
     <div class="w-[95%] h-[153px] bg-[#fff] flex mt-[20px] mx-auto">
       <!-- 头像部分 -->
