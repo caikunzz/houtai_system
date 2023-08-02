@@ -33,6 +33,15 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         },
         component: () => import('@/views/myProject/projectView.vue'),
       },
+      {
+        path: 'department',
+        name: 'department',
+        meta: {
+          title: '人员管理',
+          icon: '',
+        },
+        component: () => import('@/views/Department/departmentView.vue'),
+      },
     ],
   },
 ];
