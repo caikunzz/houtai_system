@@ -5,7 +5,7 @@ import Layout from '@/Layout/LaoutIndex.vue';
 const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/Home/index',
+    redirect: '/Home',
   },
   {
     path: '/Home',
@@ -14,6 +14,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       requiresAuth: true,
     },
     component: Layout,
+    redirect: '/Home/index',
     children: [
       {
         path: 'index',
