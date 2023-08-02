@@ -1,54 +1,51 @@
 <template>
-  <div class="bg-[#F1F1F1]">
+  <div class="h-full bg-[#F1F1F1] p-7 flex flex-col">
     <!-- 用户信息部分 -->
-    <div class="w-[95%] h-[153px] bg-[#fff] flex mt-[20px] mx-auto">
-      <!-- 头像部分 -->
-      <div class="w-[90px] h-[90px] rounded-full overflow-hidden mt-[32px] ml-[20px]">
-        <img :src="user.avatar" alt="" />
-      </div>
-      <!-- 信息部分 -->
-      <div class="w-[614px] h-full ml-[20px] flex flex-col justify-center">
-        <p class="text-[25px] pl-6">{{ greeting }}, {{ user.username }}，祝你开心每一天！</p>
-        <p v-if="user.roles[0]" class="pt-3 pl-7">{{ user.roles[0].name }}</p>
+    <div class="bg-[#fff] h-[120px] px-[30px] mb-[20px] flex items-center justify-between">
+      <div class="flex">
+        <!-- 头像部分 -->
+        <div class="mr-5">
+          <el-avatar :size="64" :src="user.avatar" />
+        </div>
+        <!-- 信息部分 -->
+        <div class="flex flex-col justify-center">
+          <p class="text-[20px] leading-[33px]">{{ greeting }}, {{ user.username }}，祝你开心每一天！</p>
+          <p v-if="user.roles[0]" class="text-[14px] text-[#00000073] leading-[33px]">{{ user.roles[0].name }}</p>
+        </div>
       </div>
 
       <!-- 项目总数 -->
-      <div class="w-[90px] h-[100%] bg-pink ml-[30%] flex flex-col justify-center items-center">
-        <p class="text-center text-[16px]">项目总数</p>
-        <p class="text-center pt-3 text-[25px]">{{ datas.count }}</p>
+      <div class="flex flex-col justify-center items-center">
+        <p class="text-[14px] text-[#00000073]">项目总数</p>
+        <p class="pt-3 text-[30px]">{{ datas.count }}</p>
       </div>
     </div>
 
     <!-- 进行中的项目 -->
-    <div class="w-[95%] mx-auto mt-[20px] bg-[#F1F1F1] flex justify-between">
+    <div class="flex overflow-y-scroll no-scrollbar <lg:flex-col" style="height: calc(100% - 140px)">
       <!-- 左边24条数据 -->
-      <div class="w-[960px] h-[100%] bg-[#fff]">
-        <div class="w-[925px] h-[80px] flex items-center justify-between">
-          <p class="pl-4">进行中的项目</p>
-          <p class="pr-4 text-[#409EFF]">全部项目</p>
+      <div class="h-full bg-[#fff] mr-5 <lg:mr-0" style="flex: 2">
+        <div class="h-[60px] flex items-center justify-between px-[20px]">
+          <p>进行中的项目</p>
+          <el-button type="text">全部项目</el-button>
         </div>
-        <!-- 下面的内容 -->
-        <div class="w-full">
-          <div class="w-[925px] flex flex-wrap">
-            <div
+        <div class="overflow-y-scroll no-scrollbar" style="height: calc(100% - 114px)">
+          <ul class="grid grid-cols-4">
+            <li
               v-for="(data, index) in paginatedDatas.slice().reverse()"
               :key="index"
-              class="w-[227px] h-[235px] border border-gray-300 relative overflow-hidden shadow-hover"
+              class="border border-gray-300 relative overflow-hidden shadow-hover cursor-pointer p-[10px]"
               style="border-left: none"
             >
-              <div class="w-[100%] h-[130px] mt-[10px] overflow-auto">
-                <img :src="`http://api.cc0820.top:1024${data.cover}`" alt="" class="w-[100%] h-[100%]" />
-              </div>
-              <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap" class="text-[20px] pt-1 pl-3">
-                {{ data.name }}
-              </p>
-              <p class="text-[14px] text-[#8C8C8C] pt-1 pb-2 pl-3">
+              <el-image :src="`http://api.cc0820.top:1024${data.cover}`" fit="cover" class="w-full h-[150px]" />
+              <p class="truncate text-[14px] leading-[24px]">{{ data.name }}</p>
+              <p class="truncate text-[12px] text-[#8C8C8C] leading-[24px]">
                 {{ data.intro ? data.intro : '暂无介绍' }}
               </p>
-              <el-progress :percentage="data.progress" :show-text="false" class="w-[95%] mx-auto" />
-              <div class="w-full mt-2 flex items-center justify-between">
-                <p class="text-[14px] text-[#8C8C8C] pt-1 pl-2">{{ data.creator.username }}</p>
-                <p class="text-[14px] text-[#8C8C8C] pt-1 pr-2">
+              <el-progress :percentage="data.progress" stroke-width="2" :show-text="false" class="my-2" />
+              <div class="flex items-center justify-between">
+                <p class="text-[14px] text-[#8C8C8C]">{{ data.creator.username }}</p>
+                <p class="text-[14px] text-[#8C8C8C]">
                   {{
                     new Date(data.updated_at)
                       .toLocaleString('default', {
@@ -68,53 +65,39 @@
               >
                 <p class="pr-4">公开</p>
               </div>
-            </div>
-          </div>
-          <div class="flex justify-center mt-4">
-            <div class="flex justify-between w-[100%] max-w-[300px] mb-6">
-              <el-pagination
-                small
-                background
-                layout="prev, pager, next"
-                :total="datas.count"
-                :page-size="12"
-                :current-page="currentPage"
-                @current-change="handlePageChange"
-              >
-              </el-pagination>
-            </div>
+            </li>
+          </ul>
+        </div>
+        <div class="flex justify-center my-[15px]">
+          <div class="flex justify-between">
+            <el-pagination
+              small
+              background
+              layout="prev, pager, next"
+              :total="datas.count"
+              :page-size="12"
+              :current-page="currentPage"
+              @current-change="handlePageChange"
+            >
+            </el-pagination>
           </div>
         </div>
       </div>
 
       <!-- 右边我的任务 -->
-      <div class="w-[400px] h-[600px] bg-[#fff]">
-        <div class="w-full h-[70px] flex items-center justify-between" style="border-bottom: 1px solid #ccc">
-          <p class="pl-3">我执行的任务 - 1</p>
-          <div
-            class="w-[100px] h-[35px] mr-3 flex items-center"
-            style="border: 1px solid #ccc; border-radius: 5px; justify-content: space-evenly"
-          >
-            <el-col class="pl-4 pt-3">
-              <span class="demonstration"></span>
-              <el-dropdown trigger="click">
-                <span class="el-dropdown-link flex items-center w-full">
-                  <p class="w-[70%]">未完成</p>
-                  <el-icon class="el-icon--right"><arrow-down /></el-icon>
-                </span>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item>以完成</el-dropdown-item>
-                    <el-dropdown-item> 未完成</el-dropdown-item>
-                  </el-dropdown-menu>
-                </template>
-              </el-dropdown>
-            </el-col>
+      <div class="flex-1 bg-[#fff] <lg:mt-5">
+        <div class="h-[60px] flex items-center justify-between border-b-1 px-5">
+          <p>我执行的任务 - 1</p>
+          <div class="w-[100px]">
+            <el-select v-model="CompleteWhether" size="large">
+              <el-option label="未完成" value="未完成" />
+              <el-option label="以完成" value="以完成" />
+            </el-select>
           </div>
         </div>
         <!-- 下面选项 -->
-        <div class="w-[90%] mx-auto">
-          <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <div>
+          <el-tabs v-model="activeName" :stretch="true" class="px-5">
             <el-tab-pane label="我执行的" name="first">
               <div
                 v-for="(item, index) in executed"
@@ -123,32 +106,14 @@
                 style="border-bottom: 1px solid #ccc"
               >
                 <div class="flex items-center pl-3">
-                  <div class="flex items-center">
-                    <div
-                      v-if="item.task_priority_id === 2"
-                      class="pl-3 pr-3"
-                      style="border: 1px solid #409eff; color: #409eff; border-radius: 5px"
-                    >
-                      普通
-                    </div>
-                    <div
-                      v-if="item.task_priority_id === 5"
-                      class="pl-3 pr-3"
-                      style="border: 1px solid red; color: red; border-radius: 5px"
-                    >
-                      非常紧急
-                    </div>
-                    <div
-                      v-if="item.task_priority_id === 4"
-                      class="pl-3 pr-3"
-                      style="border: 1px solid #fa8c15; color: #fa8c15; text-align: center; border-radius: 5px"
-                    >
-                      紧急
-                    </div>
+                  <div>
+                    <el-tag v-if="item.task_priority_id === 2">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 5" type="danger">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 4" type="warning">普通</el-tag>
                   </div>
-                  <p class="pl-3 text-[#569CEE]">{{ item.name }}</p>
+                  <p class="pl-3 text-[#569CEE] text-xs">{{ item.name }}</p>
                 </div>
-                <P class="pr-5 text-[#ccc]">{{ item.project.name }}</P>
+                <p class="pr-5 text-[#ccc] text-sm">{{ item.project.name }}</p>
               </div>
             </el-tab-pane>
             <el-tab-pane label="我参与的" name="second">
@@ -159,30 +124,14 @@
                 style="border-bottom: 1px solid #ccc"
               >
                 <div class="flex items-center pl-3">
-                  <div
-                    v-if="item.task_priority_id === 2"
-                    class="pl-3 pr-3"
-                    style="border: 1px solid #409eff; color: #409eff; border-radius: 5px"
-                  >
-                    普通
+                  <div>
+                    <el-tag v-if="item.task_priority_id === 2">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 5" type="danger">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 4" type="warning">普通</el-tag>
                   </div>
-                  <div
-                    v-if="item.task_priority_id === 5"
-                    class="pl-3 pr-3"
-                    style="border: 1px solid red; color: red; border-radius: 5px"
-                  >
-                    非常紧急
-                  </div>
-                  <div
-                    v-if="item.task_priority_id === 4"
-                    class="pl-3 pr-3"
-                    style="border: 1px solid #fa8c15; color: #fa8c15; text-align: center; border-radius: 5px"
-                  >
-                    紧急
-                  </div>
-                  <p class="pl-3 text-[#569CEE]">{{ item.name }}</p>
+                  <p class="pl-3 text-[#569CEE] text-xs">{{ item.name }}</p>
                 </div>
-                <P class="pr-5 text-[#ccc]">{{ item.project.name }}</P>
+                <p class="pr-5 text-[#ccc] text-sm">{{ item.project.name }}</p>
               </div>
             </el-tab-pane>
             <el-tab-pane label="我创建的" name="third">
@@ -193,32 +142,14 @@
                 style="border-bottom: 1px solid #ccc"
               >
                 <div class="flex items-center pl-3">
-                  <div class="flex items-center">
-                    <div
-                      v-if="item.task_priority_id === 2"
-                      class="pl-3 pr-3"
-                      style="border: 1px solid #409eff; color: #409eff; border-radius: 5px"
-                    >
-                      普通
-                    </div>
-                    <div
-                      v-if="item.task_priority_id === 5"
-                      class="pl-3 pr-3"
-                      style="border: 1px solid red; color: red; border-radius: 5px"
-                    >
-                      非常紧急
-                    </div>
-                    <div
-                      v-if="item.task_priority_id === 4"
-                      class="pl-3 pr-3"
-                      style="border: 1px solid #fa8c15; color: #fa8c15; text-align: center; border-radius: 5px"
-                    >
-                      紧急
-                    </div>
+                  <div>
+                    <el-tag v-if="item.task_priority_id === 2">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 5" type="danger">普通</el-tag>
+                    <el-tag v-if="item.task_priority_id === 4" type="warning">普通</el-tag>
                   </div>
-                  <p class="pl-3 text-[#569CEE]">{{ item.name }}</p>
+                  <p class="pl-3 text-[#569CEE] text-xs">{{ item.name }}</p>
                 </div>
-                <P class="pr-5 text-[#ccc]">{{ item.project.name }}</P>
+                <p class="pr-5 text-[#ccc] text-sm">{{ item.project.name }}</p>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -248,6 +179,7 @@ const user = ref<{
     },
   ],
 });
+const CompleteWhether = ref('未完成');
 
 // 初始条数
 const datas = ref<{

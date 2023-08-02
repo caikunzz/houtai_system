@@ -1,7 +1,7 @@
 <template>
   <div class="h-full bg-[#F4F4F4]">
     <Header></Header>
-    <div style="height: calc(100% - 65px)">
+    <div style="height: calc(100% - 65px)" class="overflow-y-scroll no-scrollbar">
       <router-view></router-view>
     </div>
   </div>
