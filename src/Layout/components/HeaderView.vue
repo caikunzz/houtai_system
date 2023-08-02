@@ -16,30 +16,24 @@
         <span class="text-3xl font-semibold ml-2">Arco</span>
       </div>
     </div>
-    <el-menu
-      :default-active="MenuActive"
-      clas
-      class="el-menu-demo ml-10 flex-1"
-      mode="horizontal"
-      @select="handleSelect"
-    >
-      <el-menu-item index="1">
-        <div @click="router.push('/')">
+    <el-menu :default-active="MenuActive" router class="el-menu-demo ml-10 flex-1 border-0" mode="horizontal">
+      <el-menu-item index="/">
+        <div>
           <el-icon>
             <Monitor size="18px" />
           </el-icon>
           <span>工作台</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="2">
-        <div @click="router.push('/home/projectView')">
+      <el-menu-item index="/home/projectView">
+        <div>
           <el-icon>
             <Histogram />
           </el-icon>
           <span>项目</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="/home/department">
         <el-icon>
           <Stamp />
         </el-icon>
@@ -68,11 +62,7 @@
 <script setup>
 import router from '@/router/index.ts';
 
-const MenuActive = ref('1');
-
-const handleSelect = () => {
-  console.log(1);
-};
+const MenuActive = ref('/');
 </script>
 
 <style scoped></style>

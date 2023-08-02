@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
-// import showCodeMessage from '@/api/code';
 import store from 'store';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 
@@ -21,15 +20,13 @@ const axiosInstance: AxiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // TODO 在这里可以加上想要在请求发送前处理的逻辑
-    // TODO 比如 loading 等
-    if (store.get('user_token') !== undefined) {
-      const data = store.get('user_token');
+    const token = store.get('user_token') !== undefined;
+    if (token) {
       const head = config;
-      if (data.accessToken && data.refreshToken) {
-        // 设置请求头的访问令牌
-        head.headers!.Authorization = `Bearer ${data.accessToken}`;
-      }
+      head.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${store.get('user_token')}`,
+      };
     }
     return config;
   },
@@ -41,11 +38,9 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   if (response.status === 200) {
-    console.log(response.config.url);
-    if (response.config.url === 'http://192.168.122.36:1024/api/v1/users/login') {
-      console.log(response.data.data);
+    if (response.config.url == '/api/v1/users/login') {
       if (response.data.data) {
-        store.set('user_token', response.data.data);
+        store.set('user_token', response.data.data.accessToken);
       }
     }
     return response.data;
