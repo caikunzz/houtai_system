@@ -44,7 +44,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Department/departmentView.vue'),
       },
       {
-        path: '/information',
+        path: 'information',
         name: 'information',
         meta: {
           title: '个人中心-Arco',

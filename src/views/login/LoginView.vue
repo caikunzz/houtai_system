@@ -277,7 +277,6 @@ const onSuccess = () => {
       .login(data)
       .then(() => {
         router.push('/');
-        user.getInfo();
       })
       .catch(() => {
         open2('错误', `密码错误!`);

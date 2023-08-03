@@ -27,7 +27,7 @@
       <div class="h-full bg-[#fff] mr-5 <lg:mr-0" style="flex: 2">
         <div class="h-[60px] flex items-center justify-between px-[20px]">
           <p>进行中的项目</p>
-          <el-button type="text">全部项目</el-button>
+          <el-button link type="primary">全部项目</el-button>
         </div>
         <div class="overflow-y-scroll no-scrollbar" style="height: calc(100% - 114px)">
           <ul class="grid grid-cols-4">
@@ -242,7 +242,6 @@ onMounted(async () => {
     .then((res) => {
       datas.value.count = res.data.count;
       datas.value.rows = res.data.rows;
-      console.log(datas.value);
     })
     .catch();
 
@@ -251,7 +250,6 @@ onMounted(async () => {
     .IexecutedIt()
     .then((res) => {
       executed.value = res.data.rows;
-      console.log(executed.value);
     })
     .catch();
 
@@ -260,7 +258,6 @@ onMounted(async () => {
     .IparticipatedIn()
     .then((res) => {
       participated.value = res.data.rows;
-      console.log(participated.value);
     })
     .catch();
 
