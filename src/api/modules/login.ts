@@ -7,5 +7,6 @@ const loginApi = {
   postVerificationCodes: (params: object) => service.post(`/api/v1/verification_codes`, params),
   putVerificationSetpassword: (params: object) => service.put(`/api/v1/users/password`, params),
   getVerificationInfo: () => service.get(`/api/v1/users/user_info`),
+  postLogout: () => service.post('/api/v1/users/logout'),
 };
 export default loginApi;

@@ -4,6 +4,7 @@ import store from 'store';
 import exceptionRoutes from '@/router/route.exception';
 import asyncRoutes from '@/router/route.async';
 import commonRoutes from '@/router/route.common';
+import useStore from '@/store/index';
 
 const WhiteSheet: string[] = ['/login']; // 路由白名单
 
@@ -34,7 +35,20 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' });
     } else {
-      next();
+      const { user } = useStore();
+      const info = store.get('user_info') !== undefined;
+      if (info) {
+        next();
+      } else {
+        user
+          .getInfo()
+          .then(() => {
+            next({ ...to, replace: true });
+          })
+          .catch(() => {
+            next(`/login?redirect=${to.path}`);
+          });
+      }
     }
   } else if (WhiteSheet.indexOf(to.path) > -1) {
     next();

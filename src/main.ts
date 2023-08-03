@@ -4,7 +4,7 @@ import messages from '@intlify/vite-plugin-vue-i18n/messages';
 // ElementPlusIcon
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 // pinia
-import { createPinia } from 'pinia';
+import pinia from '@/store/deault';
 // vue router
 import router from '@/router/index';
 import App from './App.vue';
@@ -23,7 +23,7 @@ const i18n = createI18n({
 
 const app = createApp(App);
 
-app.use(router).use(createPinia());
+app.use(router).use(pinia);
 
 app.use(i18n);
 
