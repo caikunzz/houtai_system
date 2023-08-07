@@ -43,7 +43,7 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   if (response.status === 200) {
     console.log(response.config.url);
 
-    if (response.config.url == '/api/v1/users/login') {
+    if (response.config.url == 'http://192.168.122.36:1024/api/v1/users/login') {
       console.log(response.data.data);
       if (response.data.data) {
         store.set('user_token', response.data.data);

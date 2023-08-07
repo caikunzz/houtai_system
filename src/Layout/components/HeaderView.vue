@@ -32,7 +32,7 @@
         </div>
       </el-menu-item>
       <el-menu-item index="2">
-        <div @click="router.push('/home/projectView')">
+        <div @click="router.push('/Home/projectManagement/projectLists/1')">
           <el-icon>
             <Histogram />
           </el-icon>
