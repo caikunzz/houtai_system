@@ -37,7 +37,11 @@
               class="border border-gray-300 relative overflow-hidden shadow-hover cursor-pointer p-[10px]"
               style="border-left: none"
             >
-              <el-image :src="`http://api.cc0820.top:1024${data.cover}`" fit="cover" class="w-full h-[150px]" />
+              <el-image
+                :src="data.cover.startsWith('/') ? `http://192.168.122.36:1024${data.cover}` : data.cover"
+                fit="cover"
+                class="w-full h-[150px]"
+              />
               <p class="truncate text-[14px] leading-[24px]">{{ data.name }}</p>
               <p class="truncate text-[12px] text-[#8C8C8C] leading-[24px]">
                 {{ data.intro ? data.intro : '暂无介绍' }}

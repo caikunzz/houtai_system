@@ -25,7 +25,7 @@
           <span>工作台</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="/home/projectView">
+      <el-menu-item index="/home/projectManagement/ProjectLists/1">
         <div>
           <el-icon>
             <Histogram />
