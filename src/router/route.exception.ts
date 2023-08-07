@@ -6,7 +6,7 @@ const exceptionRoutes: Array<RouteRecordRaw> = [
     path: '/401',
     name: '401',
     meta: {
-      title: '需要登录',
+      title: 'Arco',
     },
     component: () => import('@/views/exception/401.vue'),
   },
