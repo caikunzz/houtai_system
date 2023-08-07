@@ -1,7 +1,7 @@
 <template>
   <div class="W-[100%] flex bg-[#f5f5f5] overflow-hidden" :class="`h-[${height}]`">
     <div class="flex w-[100%]" :class="`h-[${height}]`">
-      <Mune></Mune>
+      <Mune :style="`h-[${height}]`"></Mune>
       <div class="w-[100%] p-[20px] overflow-auto">
         <div class="bg-[#fff] p-[20px] text-[14px] relative">
           <router-view></router-view>

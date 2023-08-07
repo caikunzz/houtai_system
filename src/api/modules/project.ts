@@ -35,5 +35,6 @@ const projectApi = {
   postChange: (params: any) =>
     service.post<T>(`http://192.168.122.36:1024/api/v1/user_project_collects/change`, params),
   getProjectsLi: (params: object) => service.get(`/api/v1/projects/list`, params),
+  getMessages: (params: object) => service.get(`http://192.168.122.36:1024/api/v1/messages/list`, params),
 };
 export default projectApi;

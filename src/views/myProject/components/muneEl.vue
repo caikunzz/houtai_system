@@ -109,7 +109,6 @@ const initialize = () => {
 initialize();
 router.beforeEach((to) => {
   activeName.value = to.path.slice(-1);
-  console.log(to.path);
   if (to.name === 'ProjectTemplate') {
     menuStr.value = `2`;
   } else if (

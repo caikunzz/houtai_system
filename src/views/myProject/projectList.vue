@@ -32,7 +32,6 @@ const handleClick = (name: TabPaneName) => {
   router.push(`/Home/projectManagement/projectLists/${name}`);
 };
 router.beforeEach((to) => {
-  console.log(to.path);
   if (
     to.name === 'ProjectLists1' ||
     to.name === 'ProjectLists2' ||
