@@ -9,7 +9,6 @@
     </el-col>
   </el-row>
 </template>
-
 <script setup lang="ts">
 const router = useRouter();
 const goBack = () => {
