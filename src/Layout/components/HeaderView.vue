@@ -16,30 +16,24 @@
         <span class="text-3xl font-semibold ml-2">Arco</span>
       </div>
     </div>
-    <el-menu
-      :default-active="MenuActive"
-      clas
-      class="el-menu-demo ml-10 flex-1"
-      mode="horizontal"
-      @select="handleSelect"
-    >
-      <el-menu-item index="1">
-        <div @click="router.push('/')">
+    <el-menu :default-active="MenuActive" router class="el-menu-demo ml-10 flex-1 border-0" mode="horizontal">
+      <el-menu-item index="/">
+        <div>
           <el-icon>
             <Monitor size="18px" />
           </el-icon>
           <span>工作台</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="2">
-        <div @click="router.push('/Home/projectManagement/projectLists/1')">
+      <el-menu-item index="/home/projectView">
+        <div>
           <el-icon>
             <Histogram />
           </el-icon>
           <span>项目</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="/home/department">
         <el-icon>
           <Stamp />
         </el-icon>
@@ -49,29 +43,82 @@
     <div class="flex">
       <ul class="flex p-0 m-0">
         <li class="flex items-center px-[20px] cursor-pointer">
-          <el-icon :size="20">
-            <i-octicon-people-16 />
-          </el-icon>
+          <el-badge :value="28" class="item" type="primary">
+            <el-icon :size="20">
+              <i-octicon-people-16 />
+            </el-icon>
+          </el-badge>
         </li>
-        <li class="flex items-center px-[20px] cursor-pointer">
-          <i-bi-bell />
-        </li>
-        <li class="flex items-center pl-[20px] cursor-pointer">
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png">user </el-avatar>
-          <span>user</span>
-        </li>
+        <!--消息通知-->
+        <el-popover
+          placement="top"
+          :width="300"
+          trigger="hover"
+          content="this is content, this is content, this is content"
+        >
+          <template #reference>
+            <li class="flex items-center px-[20px] cursor-pointer">
+              <i-bi-bell />
+            </li>
+          </template>
+          <el-tabs tab-position="top" :stretch="true">
+            <el-tab-pane label="@我"><el-empty description="暂无" /></el-tab-pane>
+            <el-tab-pane label="通知"><el-empty description="暂无" /></el-tab-pane>
+            <el-tab-pane label="私信"><el-empty description="暂无" /></el-tab-pane>
+          </el-tabs>
+        </el-popover>
+        <!--user-->
+        <el-popover placement="top-start" trigger="hover" class="p-0">
+          <template #reference>
+            <li v-if="Info" class="flex items-center pl-[20px] cursor-pointer">
+              <el-avatar :src="Info.avatar">user </el-avatar>
+              <span class="ml-3">{{ Info.username }}</span>
+            </li>
+          </template>
+          <div>
+            <div class="flex flex-col">
+              <el-button tag="a" text href="/Home/information">
+                <el-icon class="mr-2"><User /></el-icon>个人设置
+              </el-button>
+            </div>
+            <div class="flex flex-col">
+              <el-button tag="a" text @click="logout">
+                <el-icon class="mr-2"><SwitchButton /></el-icon>退出登录
+              </el-button>
+            </div>
+          </div>
+        </el-popover>
       </ul>
     </div>
   </div>
 </template>
 
 <script setup>
-import router from '@/router/index.ts';
+import store from 'store';
+import useStore from '@/store/index';
+import router from '@/router';
 
-const MenuActive = ref('1');
+const { user } = useStore();
+const Info = ref(store.get('user_info')); // 获取本地存储用户信息
+const MenuActive = ref('/');
 
-const handleSelect = () => {
-  console.log(1);
+// 退出登录
+const logout = () => {
+  ElMessageBox.alert('This is a message', 'Title', {
+    confirmButtonText: 'OK',
+    callback: (action) => {
+      if (action === 'confirm') {
+        user
+          .logout()
+          .then(() => {
+            router.push('/login');
+          })
+          .catch(() => {
+            ElMessage('退出登录失败, 请检查网络');
+          });
+      }
+    },
+  });
 };
 </script>
 

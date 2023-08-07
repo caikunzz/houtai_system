@@ -1,11 +1,12 @@
 // i18n
 import { createI18n } from 'vue-i18n';
 import messages from '@intlify/vite-plugin-vue-i18n/messages';
-// vue router
+// ElementPlusIcon
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-import router from '@/router/index';
 // pinia
-import store from '@/store';
+import pinia from '@/store/deault';
+// vue router
+import router from '@/router/index';
 import App from './App.vue';
 // antdv
 import 'ant-design-vue/dist/reset.css';
@@ -22,7 +23,7 @@ const i18n = createI18n({
 
 const app = createApp(App);
 
-app.use(router).use(store);
+app.use(router).use(pinia);
 
 app.use(i18n);
 

@@ -6,7 +6,7 @@ import MuneEl from '@/views/myProject/MuneList.vue';
 const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/Home/index',
+    redirect: '/Home',
   },
   {
     path: '/Home',
@@ -15,6 +15,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       requiresAuth: true,
     },
     component: Layout,
+    redirect: '/Home/index',
     children: [
       {
         path: 'index',
@@ -128,6 +129,24 @@ const asyncRoutes: Array<RouteRecordRaw> = [
             ],
           },
         ],
+      },
+      {
+        path: 'department',
+        name: 'department',
+        meta: {
+          title: '人员管理',
+          icon: '',
+        },
+        component: () => import('@/views/Department/departmentView.vue'),
+      },
+      {
+        path: 'information',
+        name: 'information',
+        meta: {
+          title: '个人中心-Arco',
+          icon: '',
+        },
+        component: () => import('@/views/userInformation/userInformation.vue'),
       },
     ],
   },

@@ -1,7 +1,7 @@
 <template>
-  <div class="h-screen bg-[#F4F4F4] flex flex-col">
+  <div class="h-full bg-[#F4F4F4]">
     <Header></Header>
-    <div class="flex-1">
+    <div style="height: calc(100% - 65px)" class="overflow-y-scroll no-scrollbar">
       <router-view></router-view>
     </div>
   </div>

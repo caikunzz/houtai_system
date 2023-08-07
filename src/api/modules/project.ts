@@ -34,5 +34,6 @@ const projectApi = {
   putTem: (params: any) => service.put(`http://192.168.122.36:1024/api/v1/project_templates`, params),
   postChange: (params: any) =>
     service.post<T>(`http://192.168.122.36:1024/api/v1/user_project_collects/change`, params),
+  getProjectsLi: (params: object) => service.get(`/api/v1/projects/list`, params),
 };
 export default projectApi;

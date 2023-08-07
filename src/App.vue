@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="h-screen w-screen">
     <!-- <el-config-provider :locale="locale"> -->
     <router-view></router-view>
     <!-- </el-config-provider> -->

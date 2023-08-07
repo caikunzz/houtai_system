@@ -9,52 +9,52 @@
     "
   >
     <div class="absolute top-[24px] left-[24px] flex items-center">
-      <svg data-v-37dfd6fc="" viewBox="0 0 24 24" fill="none" style="font-size: 30px; height: 30px">
+      <svg data-v-37dfd6fc="" fill="none" style="font-size: 30px; height: 30px" viewBox="0 0 24 24">
         <path
-          data-v-37dfd6fc=""
-          fill-rule="evenodd"
           clip-rule="evenodd"
           d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-4.737a4.263 4.263 0 100-8.526 4.263 4.263 0 000 8.526z"
+          data-v-37dfd6fc=""
           fill="#165DFF"
+          fill-rule="evenodd"
         ></path>
         <path
-          data-v-37dfd6fc=""
-          fill-rule="evenodd"
           clip-rule="evenodd"
           d="M16.263 7.737H21v4.353l-.013.384h-4.75c.024-.237.026-.41.026-.41V7.737zM11.526 3.013c.207-.01.402-.013.402-.013h4.335v4.737h-4.35s-.202.004-.387.025v-4.75z"
+          data-v-37dfd6fc=""
           fill="#165DFF"
+          fill-rule="evenodd"
         ></path>
-        <path data-v-37dfd6fc="" fill="#16D2AC" d="M15 3h6v6h-6z"></path>
+        <path d="M15 3h6v6h-6z" data-v-37dfd6fc="" fill="#16D2AC"></path>
       </svg>
       <span class="font-575 text-[1.25rem]">Arco</span>
     </div>
     <div class="flex flex-col w-[320px] h-[390px] justify-center">
       <!-- 登录 -->
-      <el-space v-if="show" direction="vertical" :fill="true" class="w-[100%]">
+      <el-space v-if="show" :fill="true" class="w-[100%]" direction="vertical">
         <div class="mb-[40px]">
           <h1 class="text-[24px] text-[#1d2129] mb-[5px]">登录 Arco</h1>
           <p class="text-[16px] text-[#86909c]">内部项目管理系统</p>
         </div>
-        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="auto" class="demo-ruleForm">
+        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" class="demo-ruleForm" label-width="auto">
           <el-form-item prop="name">
             <el-input
               v-model="ruleForm.name"
-              type="text"
-              autocomplete="off"
               :prefix-icon="User"
+              autocomplete="off"
               class="h-[40px]"
               placeholder="请输入用户名"
+              type="text"
             />
           </el-form-item>
           <el-form-item prop="pass">
             <el-input
               v-model="ruleForm.pass"
-              type="password"
-              autocomplete="off"
-              show-password
               :prefix-icon="Lock"
+              autocomplete="off"
               class="h-[40px]"
               placeholder="请输入密码"
+              show-password
+              type="password"
             />
           </el-form-item>
           <el-form-item prop="checked1">
@@ -64,96 +64,98 @@
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" size="large" class="w-[100%] h-[40px]" @click="onSubmit">登录</el-button>
+            <el-button class="w-[100%] h-[40px]" size="large" type="primary" @click="onSubmit">登录 </el-button>
           </el-form-item>
           <el-form-item>
-            <el-button class="w-[100%]" size="large" plain @click="show = !show">注册</el-button>
+            <el-button class="w-[100%]" plain size="large" @click="show = !show">注册</el-button>
           </el-form-item>
         </el-form>
       </el-space>
       <!-- 注册 -->
-      <el-space v-else-if="!show" direction="vertical" :fill="true">
-        <el-form ref="ruleFormRef2" :model="ruleForm2" :rules="rules2" label-width="auto" class="demo-ruleForm">
+      <el-space v-else-if="!show" :fill="true" direction="vertical">
+        <el-form ref="ruleFormRef2" :model="ruleForm2" :rules="rules2" class="demo-ruleForm" label-width="auto">
           <el-form-item v-if="show2" prop="name">
             <el-input
               v-model="ruleForm2.name"
               :prefix-icon="User"
-              type="text"
               autocomplete="off"
               class="h-[40px]"
               placeholder="请输入用户名"
+              type="text"
             />
           </el-form-item>
           <el-form-item prop="mail">
             <el-input
               v-model="ruleForm2.mail"
               :prefix-icon="Message"
-              type="text"
               autocomplete="off"
               class="h-[40px]"
               placeholder="请输入邮箱"
+              type="text"
             />
           </el-form-item>
           <div class="flex justify-between">
             <el-form-item prop="verificationCode">
               <el-input
                 v-model="ruleForm2.verificationCode"
-                type="text"
                 autocomplete="off"
                 class="w-[50%] h-[40px] box-border"
                 placeholder="验证码"
+                type="text"
               />
             </el-form-item>
             <el-button
               v-if="show2"
-              type="primary"
               :disabled="disabled"
+              class="w-[110px] h-[40px]"
               plain
               size="large"
-              class="w-[110px] h-[40px]"
+              type="primary"
               @click="onEmali"
-              >{{ yzm }}</el-button
-            >
+              >{{ yzm }}
+            </el-button>
             <el-button
               v-else
-              type="primary"
               :disabled="disabled"
-              size="large"
               class="w-[110px] h-[40px]"
+              size="large"
+              type="primary"
               @click="onEmali"
-              >{{ yzm }}</el-button
-            >
+              >{{ yzm }}
+            </el-button>
           </div>
           <el-form-item prop="pass">
             <el-input
               v-model="ruleForm2.pass"
-              show-password
               :prefix-icon="Unlock"
-              type="pass"
               autocomplete="off"
               class="h-[40px]"
               placeholder="请输入密码"
+              show-password
+              type="pass"
             />
           </el-form-item>
           <el-form-item prop="checkPass">
             <el-input
               v-model="ruleForm2.checkPass"
-              show-password
               :prefix-icon="Lock"
-              type="pass"
               autocomplete="off"
               class="h-[40px]"
               placeholder="请再次输入密码"
+              show-password
+              type="pass"
             />
           </el-form-item>
           <div class="flex justify-between">
-            <el-button v-if="show2" type="primary" size="large" class="w-[48%] h-[40px]" @click="onLogin"
-              >注册</el-button
-            >
-            <el-button v-else type="primary" size="large" class="w-[48%] h-[40px]" @click="setPass">重置密码</el-button>
-            <el-button plain size="large" class="w-[48%] h-[40px]" @click="(show = !show), (show2 = true)"
-              >去登录</el-button
-            >
+            <el-button v-if="show2" class="w-[48%] h-[40px]" size="large" type="primary" @click="onLogin"
+              >注册
+            </el-button>
+            <el-button v-else class="w-[48%] h-[40px]" size="large" type="primary" @click="setPass"
+              >重置密码
+            </el-button>
+            <el-button class="w-[48%] h-[40px]" plain size="large" @click="(show = !show), (show2 = true)"
+              >去登录
+            </el-button>
           </div>
         </el-form>
       </el-space>
@@ -163,23 +165,24 @@
     </div>
   </div>
   <Vcode
+    :canvas-height="200"
+    :canvas-width="400"
     :show="isShow"
-    @success="onSuccess"
-    @close="onClose"
     :slider-size="40"
-    :canvasWidth="400"
-    :canvasHeight="200"
+    @close="onClose"
+    @success="onSuccess"
   />
 </template>
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus';
-import { User, Message, Lock, Unlock } from '@element-plus/icons-vue';
+import { Lock, Message, Unlock, User } from '@element-plus/icons-vue';
 import Vcode from 'vue3-puzzle-vcode';
-import store from 'store';
 import loginApi from '@/api/modules/login';
 import router from '@/router';
+import useStore from '@/store/index';
 
-console.log(store.get('user_token'));
+const { user } = useStore();
+
 const isShow = ref(false);
 const onShow = () => {
   isShow.value = true;
@@ -216,7 +219,6 @@ const validateName = (rule: any, value: any, callback: any) => {
       .getVerification({ username: value })
       .then((res: object) => {
         if ((res as { code: number }).code === 0) {
-          console.log('用户已存在');
           code.value = true;
           callback();
         } else if ((res as { code: number }).code === 404) {
@@ -264,7 +266,6 @@ const open2 = (tle: string, msg: string) => {
   });
 };
 // 登录按钮
-// onShow();
 const onSuccess = () => {
   onClose();
   const data = {
@@ -272,21 +273,12 @@ const onSuccess = () => {
     password: ruleForm.pass,
   };
   if (data.password !== '' && data.username !== '' && code.value === true) {
-    console.log('登录：用户已存在');
-    loginApi
-      .postVerification(data)
-      .then((res: object) => {
-        console.log(res);
-        open('成功', `登录成功`);
-        loginApi.getVerificationInfo().then((ress: { code: number; data: object; msg: string }) => {
-          console.log(ress);
-          if (ress.msg === '请求成功') {
-            router.push('/');
-          }
-        });
+    user
+      .login(data)
+      .then(() => {
+        router.push('/');
       })
-      .catch((err: object) => {
-        console.log(err);
+      .catch(() => {
         open2('错误', `密码错误!`);
       });
   } // 验证成功，需要手动关闭模态框
