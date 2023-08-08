@@ -21,8 +21,8 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     const token = store.get('user_token') !== undefined;
+    const head = config;
     if (token) {
-      const head = config;
       head.headers = {
         ...config.headers,
         Authorization: `Bearer ${store.get('user_token')}`,
@@ -38,11 +38,6 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   if (response.status === 200) {
-    if (response.config.url == '/api/v1/users/login') {
-      if (response.data.data) {
-        store.set('user_token', response.data.data.accessToken);
-      }
-    }
     return response.data;
   }
   ElMessage.info(JSON.stringify(response.status));

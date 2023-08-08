@@ -35,5 +35,11 @@ module.exports = {
     'unicorn/filename-case': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     eqeqeq: 'off',
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['index', 'main', '404', 'invite', 'layout', 'message'], // 需要忽略的组件名
+      },
+    ],
   },
 };

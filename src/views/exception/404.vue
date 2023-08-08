@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter();
+import router from '@/router';
+
 const goBack = () => {
-  router.push({
-    name: 'home',
-  });
+  console.log(1, router);
+  router.push('/layout');
 };
 </script>

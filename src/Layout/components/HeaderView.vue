@@ -1,6 +1,6 @@
 <template>
   <div class="h-[65px] px-[40px] flex bg-white shadow-lg shadow-[#ccc]">
-    <div class="flex items-center">
+    <div class="flex items-center" @click="router.push('/layout')">
       <svg data-v-74f95c37="" fill="none" height="36" width="36">
         <path
           clip-rule="evenodd"
@@ -25,7 +25,7 @@
           <span>工作台</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="/home/projectView">
+      <el-menu-item index="/layout/projectManagement">
         <div>
           <el-icon>
             <Histogram />
@@ -33,7 +33,7 @@
           <span>项目</span>
         </div>
       </el-menu-item>
-      <el-menu-item index="/home/department">
+      <el-menu-item index="/layout/departmentManagement">
         <el-icon>
           <Stamp />
         </el-icon>
@@ -77,7 +77,7 @@
           </template>
           <div>
             <div class="flex flex-col">
-              <el-button tag="a" text href="/Home/information">
+              <el-button tag="a" text @click="router.push('/layout/inform')">
                 <el-icon class="mr-2"><User /></el-icon>个人设置
               </el-button>
             </div>
@@ -108,14 +108,8 @@ const logout = () => {
     confirmButtonText: 'OK',
     callback: (action) => {
       if (action === 'confirm') {
-        user
-          .logout()
-          .then(() => {
-            router.push('/login');
-          })
-          .catch(() => {
-            ElMessage('退出登录失败, 请检查网络');
-          });
+        user.logout();
+        router.push('/login');
       }
     },
   });

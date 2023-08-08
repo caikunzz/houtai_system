@@ -5,52 +5,24 @@ import Layout from '@/Layout/LaoutIndex.vue';
 const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/Home',
+    redirect: '/layout',
   },
   {
-    path: '/Home',
+    path: '/layout',
+    redirect: '/layout',
+    component: Layout,
     name: 'Home',
     meta: {
-      requiresAuth: true,
+      title: '首页',
     },
-    component: Layout,
-    redirect: '/Home/index',
     children: [
       {
-        path: 'index',
-        name: 'index',
-        component: () => import('@/views/Home/homeView.vue'),
+        path: '',
+        name: 'Layout',
         meta: {
-          title: '首页-Arco',
-          icon: '',
+          title: '首页-子页',
         },
-      },
-      {
-        path: 'projectView',
-        name: 'projectView',
-        meta: {
-          title: '全部项目-Arco',
-          icon: '',
-        },
-        component: () => import('@/views/myProject/projectView.vue'),
-      },
-      {
-        path: 'department',
-        name: 'department',
-        meta: {
-          title: '人员管理',
-          icon: '',
-        },
-        component: () => import('@/views/Department/departmentView.vue'),
-      },
-      {
-        path: 'information',
-        name: 'information',
-        meta: {
-          title: '个人中心-Arco',
-          icon: '',
-        },
-        component: () => import('@/views/userInformation/userInformation.vue'),
+        component: () => import('@/views/layout/layout.vue'),
       },
     ],
   },

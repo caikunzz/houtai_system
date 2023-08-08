@@ -19,3 +19,37 @@ export interface projectList {
   state: number;
   updated_at: string;
 }
+
+export interface RouteRecordRaw {
+  path?: string;
+  name?: string;
+  component?: any;
+  meta?: {
+    id?: number;
+    parent_id?: number;
+    icon?: string;
+    hidden?: boolean;
+    title?: string;
+  };
+  children?: object[];
+}
+
+export interface InfoType {
+  avatar: string;
+  city: string;
+  company: string;
+  created_at: string;
+  department_id: number;
+  email: string;
+  id: number;
+  last_login: string;
+  nickname: string;
+  permissions: string[];
+  phone: string;
+  roles: object[];
+  state: number;
+  updated_at: string;
+  user_id_github: number;
+  username: string;
+  menu: object[];
+}

@@ -8,7 +8,10 @@
       background-position: center 110px;
     "
   >
-    <div class="absolute top-[24px] left-[24px] flex items-center">
+    <div
+      class="absolute top-[24px] left-[24px] flex items-center"
+      @click="router.push('/departmentManagement/departmentManagement')"
+    >
       <svg data-v-37dfd6fc="" fill="none" style="font-size: 30px; height: 30px" viewBox="0 0 24 24">
         <path
           clip-rule="evenodd"
@@ -266,22 +269,15 @@ const open2 = (tle: string, msg: string) => {
   });
 };
 // 登录按钮
-const onSuccess = () => {
+const onSuccess = async () => {
   onClose();
   const data = {
     username: ruleForm.name,
     password: ruleForm.pass,
   };
   if (data.password !== '' && data.username !== '' && code.value === true) {
-    user
-      .login(data)
-      .then(() => {
-        router.push('/');
-      })
-      .catch(() => {
-        open2('错误', `密码错误!`);
-      });
-  } // 验证成功，需要手动关闭模态框
+    user.login(data);
+  }
 };
 const onSubmit = () => {
   const data = {
